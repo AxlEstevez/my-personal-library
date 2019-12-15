@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<% include partials/user_head %>
+</head>
+<body>
+	<% include partials/header %>
+   <div class="container menu-option">
+	    <form action="addBook" method="POST">
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">ISBN:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="ISNB" id="isbn" name="isbn">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Titulo:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="titulo" id="titulo" name="title">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Edici&oacute;n:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="edicion" id="edicion" name="edicion">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">p&aacute;ginas:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="paginas" id="paginas" name="pages">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">a&ntilde;o</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="año" id="anio" name="anio">
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-10">
+					<button class="btn btn-success">Continuar</button>
+					<a href="/" class="btn btn-danger">Cancelar</a>
+				</div>
+			</div>
+		</form>
+   </div>
+</body>
+</html>
