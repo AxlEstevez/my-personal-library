@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>Sing Up Page</title>
+        <title>Sign Up Page</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="/stylesheets/main.css" rel="stylesheet">
@@ -20,6 +20,22 @@
         </nav>
         <!---Formulario de registro-->
         <% include partials/Form_sing_up %>
+        <script text="text/javascript">
+            function showPass(){
+                var object = document.getElementById("pass");
+                var boton = document.getElementById("botonPass"); 
+                if(object.type == "password")
+                {
+                    object.type = "text";
+                    boton.innerHTML = "Ocultar Contrase&ntilde;a";
+                }
+                else
+                {
+                    object.type = "password";
+                    boton.innerHTML = "Mostrar Contrase&ntilde;a";
+                }
+            }
+        </script>
         <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
             <div class="container text-center">
                 <small>Copyright &copy; AxlEstevez Team</small>

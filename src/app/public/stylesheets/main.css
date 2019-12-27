@@ -35,12 +35,21 @@ body{
     background-color: #e2fff6;
     position: relative;
     top: 25px;
-    left: 415px;
-    width: 500px;
+    left: 250px;
+    width: 800px;
     border-radius: 5px;
     bottom: 15px;
 }
 
+.pass-boton{
+    border-radius: 5px;
+    background-color: #2eb6d8;
+    color: #ffffff;
+    border: 1px solid #2eb6d8;
+    position: relative;
+    top: 5px;
+    height: 35px;
+}
 
 footer{
     position: relative;
