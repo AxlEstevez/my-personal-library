@@ -1,0 +1,60 @@
+<div class="container-fluid sing-up-div">
+    <form class="form-sing-up" action="Sing_up" method="POST">
+        <div class="form-group">
+            <h3>Sign UP</h3>
+        </div>
+        <div class="form-group">
+            <center><img src="/images/libros.png" class="icon"></center>
+        </div>
+        <div class="form-group"><!--Nombre-->
+            <label for="nombre_id" class="label-sing-up">
+                Nombre
+            </label>
+            <input type="text" name="nombre" class="form-control" placeholder="Bruce">
+        </div>
+        <div class="form-group"><!--Nombre-->
+            <label for="ap" class="label-sing-up">
+                Apellido Paterno
+            </label>
+            <input type="text" name="apellido_p" class="form-control" placeholder="Wayne">
+        </div>
+        <div class="form-group"><!--Nombre-->
+            <label for="nombre_id" class="label-sing-up">
+                Apellido Materno
+            </label>
+            <input type="text" name="apellido_m" class="form-control" placeholder="Ken">
+        </div>
+        <div class="form-group"><!--Nombre-->
+            <label for="nombre_id" class="label-sing-up">
+                Sexo
+            </label>
+            <select name="sexo">
+                <option value="null"></option>
+                <option value="masculino">Masculino</option>
+                <option value="femenino">Femenino</option>
+            </select>
+        </div>
+        <div class="form-group"><!--Nombre-->
+            <label for="nombre_id" class="label-sing-up">
+                correo
+            </label>
+           <input type="email" name="correo" class="form-control" placeholder="ejemplo@email.com">
+        </div>
+        <div class="form-group"><!--Nombre-->
+            <label for="nombre_id" class="label-sing-up">
+                Nombre de Usuario
+            </label>
+           <input type="text" name="userName" class="form-control" placeholder="UserName">
+        </div>
+        <div class="form-group"><!--Nombre-->
+            <label for="nombre_id" class="label-sing-up">
+               Contrase&ntilde;a
+            </label>
+           <input type="password" name="pass" class="form-control" placeholder="minimo 8, maximo 16">
+        </div>
+        <div class="form-group"><!--Nombre-->
+          <button type="button" class="btn btn-success">Continuar</button>
+          <a class="btn btn-danger" href="/">Cancelar</a>
+        </div>
+    </form>   
+</div>

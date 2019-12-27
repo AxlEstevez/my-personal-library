@@ -1,0 +1,48 @@
+body{
+    background-color: ghostwhite;
+    color: black;
+}
+
+.icon{
+    height: 60px;
+    width: 60px;
+}
+.header{
+    width: 101%;
+}
+
+.header-menu{
+    position: absolute;
+    top: 0px;
+    text-align: center;
+    color: white;
+    background-color: #30cc9d;
+    width: 101%;
+    right: 5px;
+}
+.menu-header{
+    background-color: #30cc9d;
+  }
+  
+
+.link-menu{
+    color: #ffffff;
+}
+
+.form-sing-up{
+    padding: 50px;
+    border: 3px #30cc9d solid;
+    background-color: #e2fff6;
+    position: relative;
+    top: 25px;
+    left: 415px;
+    width: 500px;
+    border-radius: 5px;
+    bottom: 15px;
+}
+
+
+footer{
+    position: relative;
+    top: 50px;
+}
