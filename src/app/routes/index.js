@@ -1,3 +1,4 @@
+var Swal = require('sweetalert2');
 var express = require('express');
 var router = express.Router();
 var connection = require('./connection');
@@ -23,7 +24,7 @@ router.get('/Sign_up', (req,res) =>{
   res.render('Sign_up');
 });
 
-router.post('/Sign_up',(req,res) =>{
+router.post('/Sign_up',(req,res,next) =>{
   var registro = {
     nombre:  req.body.nombre,
     apellido_p: req.body.apellido_p,
@@ -37,10 +38,17 @@ router.post('/Sign_up',(req,res) =>{
   (error,results) => {
     if(error){
       console.log(error);
-      res.redirect("Sign_up");
+      res.send("Error , verifica tus datos <a href='Sign_up' class='btn btn-danger'>Continuar</a>" ,);
+      return;
+    }
+    else{
+      res.render("user_index");
     }
   });
-  res.render("user_index");
+});
+
+router.get('/user', (req,res) =>{
+  res.render("test");
 });
 
 module.exports = router;
