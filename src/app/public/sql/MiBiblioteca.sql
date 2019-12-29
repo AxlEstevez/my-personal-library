@@ -20,7 +20,8 @@ CREATE TABLE Usuarios(
     usuario VARCHAR(50),
     password VARCHAR(16),
     PRIMARY KEY(correo,usuario),
-    CHECK(sexo = 'masculino' OR sexo = 'femenino')
+    CHECK(sexo = 'masculino' OR sexo = 'femenino'),
+    CHECK(password > 8 AND password < 16)
 );
 
 CREATE TABLE Libro(
