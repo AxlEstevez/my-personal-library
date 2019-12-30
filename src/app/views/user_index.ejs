@@ -4,6 +4,15 @@
     <% include partials/user_head %>
 </head>
 <body>
+    <% if(mensaje.length > 0){ %>
+        <script type = "text/javascript">
+            Swal.fire({
+                icon: 'success',
+                title: 'Registro completo'
+                text: 'Bienvenido'
+            });
+        </script>
+    <% } %>
     <% include partials/header %>
     <% include partials/user_body %>
 </body>

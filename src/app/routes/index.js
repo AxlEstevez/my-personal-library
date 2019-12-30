@@ -42,7 +42,7 @@ router.post('/Sign_up',(req,res,next) =>{
       return;
     }
     else{
-      res.render("user_index");
+      res.render("user_index", {mensaje : 'send'});
     }
   });
 });
