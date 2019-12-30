@@ -42,13 +42,13 @@ router.post('/Sign_up',(req,res,next) =>{
       return;
     }
     else{
-      res.render("user_index", {mensaje : 'send'});
+      res.render("user_index", {mensaje : '1'});
     }
   });
 });
 
 router.get('/user', (req,res) =>{
-  res.render("test");
+  res.render("test", {mensaje: '1'});
 });
 
 module.exports = router;

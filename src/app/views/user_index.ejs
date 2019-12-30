@@ -4,16 +4,15 @@
     <% include partials/user_head %>
 </head>
 <body>
-<<<<<<< HEAD
-=======
-			<% if(mensaje.length == 1){
-					<% Swal.fire({
-					<%	icon: 'success', %>
-					<%	title: 'Bienevenido',%>
-					<%	text: 'Este es tu perfil.' %>
-					<% }); %>
-			<% } %>
->>>>>>> 76d99e5a528ddabfff5646b6111f2cfeda6e7960
+    <% if(mensaje == '1'){ %>
+        <script type="text/javascript">
+            Swal.fire({ 
+                icon: 'success',
+                title: 'Bienvenido',
+                text: 'Presiona ok para continuar' 
+            });
+        </script>
+    <% } %>     
     <% include partials/header %>
     <% include partials/user_body %>
 </body>
