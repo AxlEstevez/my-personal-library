@@ -4,6 +4,13 @@
     <% include partials/user_head %>
 </head>
 <body>
+			<% if(mensaje.length == 1){
+					<% Swal.fire({
+					<%	icon: 'success', %>
+					<%	title: 'Bienevenido',%>
+					<%	text: 'Este es tu perfil.' %>
+					<% }); %>
+			<% } %>
     <% include partials/header %>
     <% include partials/user_body %>
 </body>
