@@ -1,5 +1,6 @@
-var Swal = require('sweetalert2');
 var express = require('express');
+var session = require('express-session');
+var bodyParser = require('body-parser');
 var router = express.Router();
 var connection = require('./connection');
 /* GET home page. */
@@ -12,7 +13,7 @@ router.get('/add', (req,res) =>{
 });
 
 router.get('/addBook', (req,res) => {
-  connection.query("SELECT nombre,apellido FROM Autor", (err,result,fields) =>{
+  connection.query("SELECT nombre,apellido FROM Autor", (err,results,fields) =>{
     if(err) throw err;
     res.render('addBook',{
       autors: result
@@ -47,9 +48,43 @@ router.post('/Sign_up',(req,res,next) =>{
   });
 });
 
-router.get('/user', (req,res) =>{
-  res.render("test", {mensaje: '1'});
+router.get('/Sign_in', (req,res) =>{
+  res.render('sign_in');
 });
+
+router.post('/Sign_in', (req,res) =>{
+  var usuario = req.body.identidad;
+  var pass = req.body.password;
+  var passBd = connection.query("SELECT password from Usuarios where usuario = ?",usuario)
+  if (usuario && pass) {
+    connection.query("SELECT usuario,password FROM Usuarios WHERE usuario = ? OR correo = ? AND password = ?",
+    [usuario,usuario,pass], (error,results,fields) =>{
+      if(results.length > 0){
+        console.log(results);
+        req.session.loggedin = true;
+        req.session.userName = usuario;
+        res.render('user_index', {mensaje: '1'});
+      }
+      else{
+        res.send("<script type='text/javascript'> alert('usuario o contraseña incorrecta'); window.location.href='Sign_in';</script>");
+      }
+      res.end();
+    });
+  }
+  else{
+    res.send("<script type='text/javascript'> alert('Ingresa usuario y contraseña'); window.location.href='Sign_in';</script>");
+  }
+});
+
+
+// ruta para testear codigo tanto del lado del ciente
+// como peticiones al servidor.
+// Este se eliminara una vez entregada la versión final.
+// ------------------------------------------------------
+router.get('/user', (req,res) =>{
+  res.render('test');
+});
+
 
 module.exports = router;
 
