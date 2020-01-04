@@ -16,7 +16,7 @@ router.get('/addBook', (req,res) => {
   connection.query("SELECT nombre,apellido FROM Autor", (err,results,fields) =>{
     if(err) throw err;
     res.render('addBook',{
-      autors: result
+      autors: results
     });
   });
 });
@@ -55,18 +55,22 @@ router.get('/Sign_in', (req,res) =>{
 router.post('/Sign_in', (req,res) =>{
   var usuario = req.body.identidad;
   var pass = req.body.password;
-  var passBd = connection.query("SELECT password from Usuarios where usuario = ?",usuario)
   if (usuario && pass) {
-    connection.query("SELECT usuario,password FROM Usuarios WHERE usuario = ? OR correo = ? AND password = ?",
+    connection.query("SELECT usuario,password,correo FROM Usuarios WHERE usuario = ? OR correo = ? AND password = ?",
     [usuario,usuario,pass], (error,results,fields) =>{
       if(results.length > 0){
-        console.log(results);
-        req.session.loggedin = true;
-        req.session.userName = usuario;
-        res.render('user_index', {mensaje: '1'});
+        if(results[0].usuario == usuario || results[0].correo == usuario && results[0].password == pass){
+          console.log(results);
+          req.session.loggedin = true;
+          req.session.userName = usuario;
+          res.render('user_index', {mensaje: '1'});
+        }
+        else{
+          res.send("<script type='text/javascript'> alert('Usuario ó contraseña incorreta'); window.location.href='Sign_in';</script>");
+        }
       }
       else{
-        res.send("<script type='text/javascript'> alert('usuario o contraseña incorrecta'); window.location.href='Sign_in';</script>");
+        res.send("<script type='text/javascript'> alert('Usuario no Encontrado ... verifica tus datos'); window.location.href='Sign_in';</script>");
       }
       res.end();
     });
