@@ -8,23 +8,45 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 
+// Ruta para la página que permite agregar nuevos registros
+// a la base de datos.
 router.get('/add', (req,res) =>{
   res.render('addElements');
 });
 
+// Se ocupa para obtener los registros de manera dinámica
+// desde el servidor al cliente.
+// --------------------------------------------------------
+// Se hace una conexión a la base de datos para recuperar
+// tanto nombre como apellido y clave de los autores que se
+// tienen registro hasta el momento. 
+// Se manda los resultados lanzados por la base de datos en
+// una variable llamada autors, para que el cliente pueda 
+// ocupar esos datos.
+// --------------------------------------------------------
 router.get('/addBook', (req,res) => {
-  connection.query("SELECT nombre,apellido FROM Autor", (err,results,fields) =>{
+  connection.query("SELECT clave,nombre,apellido FROM Autor", (err,results,fields) =>{
     if(err) throw err;
     res.render('addBook',{
       autors: results
     });
   });
 });
-
+// fin de la función
+// --------------------------------------------------------
 router.get('/Sign_up', (req,res) =>{
   res.render('Sign_up');
 });
 
+
+// Esta ruta es la que valida lo datos del usuario 
+// la momento de iniciar sesión.
+// --------------------------------------------------------
+// Obtiene datos del navegador por medio del metodo post
+// Hace una consulta select a la base de datos y compara
+// si los datos registrados corresponden a los datos
+// ingresados por el usuario, así como compara si existe
+// un registro previo del usuario.
 router.post('/Sign_up',(req,res,next) =>{
   var registro = {
     nombre:  req.body.nombre,
@@ -47,7 +69,8 @@ router.post('/Sign_up',(req,res,next) =>{
     }
   });
 });
-
+// Fin del metodo
+// --------------------------------------------------------
 router.get('/Sign_in', (req,res) =>{
   res.render('sign_in');
 });
@@ -60,7 +83,6 @@ router.post('/Sign_in', (req,res) =>{
     [usuario,usuario,pass], (error,results,fields) =>{
       if(results.length > 0){
         if(results[0].usuario == usuario || results[0].correo == usuario && results[0].password == pass){
-          console.log(results);
           req.session.loggedin = true;
           req.session.userName = usuario;
           res.render('user_index', {mensaje: '1'});
