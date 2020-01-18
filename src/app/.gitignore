@@ -1,5 +1,3 @@
 views/test.ejs
-Requerimientos.docx
-Requerimientos.pdf
-Pantallas.txt
-product_backlog.txt
+views/partials/test-body.ejs
+documentacion

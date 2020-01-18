@@ -6,32 +6,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="/stylesheets/main.css" rel="stylesheet">
         <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
-        <link rel="icon" type="image/icon" href="/images/libros.png">
+		<link rel="stylesheet" href="/stylesheets/style.css" />
+		<link rel="stylesheet" href="/stylesheets/style4.css" />
+		<link rel="stylesheet" href="/stylesheets/index_user.css">
+		<link rel="icon" type="image/icon" href="/images/libros.png">
     </head>
     <body>
         <nav class="navbar navbar-expand-sm justify-content-center menu-header">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
+                    <h1 class="title-page">Liber</h1>
+                </li>
+                <li class="nav-item">
                     <a class="link-menu nav-link" href="#">
                         <img class="icon" src="/images/libros.png">
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="link-menu nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="link-menu nav-link" href="Sign_in">Sign in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="link-menu nav-link" href="Sign_up">Sign up</a>
-                </li>
-                <li class="nav-item">
-                    <a class="link-menu nav-link" href="#">Contacto</a>
-                </li>
-                <li class="nav-item">
-                    <a class="link-menu nav-link" href="#">About</a>
-                </li>
             </ul>
         </nav>
+		<% include partials/home_body %>
     </body>
 </html>

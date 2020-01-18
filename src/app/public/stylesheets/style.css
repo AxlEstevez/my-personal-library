@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Baskervville|Calistoga&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Amarante|Indie+Flower&display=swap');
 
 body {
   background-color: #f5ecec;
@@ -33,4 +33,10 @@ a {
 
 .menu-header{
   background-color: #30cc9d;
+}
+
+.title-page{
+  color:  #ffffff;
+  font-family: 'Indie Flower',cursive;
+  font-size: 60px;
 }
