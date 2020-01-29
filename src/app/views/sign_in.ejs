@@ -41,12 +41,17 @@
 			font-weight: bold;
 			color: #ffffff;
 		}
+		.icon-login{
+			width: 120px;
+			height: 120px;
+		}
 		</style>
     </head>
     <body>
         <% include partials/nav %>
         <div class="login-form">
-		<h1>Login</h1>
+		<center><img src="./images/login-1.png" alt="icono" class="icon-login"></center>
+		<h1>Iniciar sesi&oacute;n</h1>
 		<form action="Sign_in" method="POST">
 			<input type="text" name="identidad" placeholder="Username o correo" required>
 			<input type="password" name="password" placeholder="Password" required>

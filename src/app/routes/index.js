@@ -40,12 +40,12 @@ router.get('/Sign_up', (req,res) =>{
 
 
 // Esta ruta es la que valida lo datos del usuario 
-// la momento de iniciar sesión.
+// al momento de iniciar sesión.
 // --------------------------------------------------------
 // Obtiene datos del navegador por medio del metodo post
 // Hace una consulta select a la base de datos y compara
 // si los datos registrados corresponden a los datos
-// ingresados por el usuario, así como compara si existe
+// ingresados por el usuario, así tambien compara si existe
 // un registro previo del usuario.
 router.post('/Sign_up',(req,res,next) =>{
   var registro = {
