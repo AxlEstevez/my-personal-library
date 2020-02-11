@@ -21,7 +21,7 @@ CREATE TABLE Usuarios(
     password VARCHAR(16),
     PRIMARY KEY(correo,usuario),
     CHECK(sexo = 'masculino' OR sexo = 'femenino'),
-    CHECK(password > 8 AND password < 16)
+    CHECK(LENGTH(password) > 8 AND LENGTH(password) < 16)
 );
 
 CREATE TABLE Libro(
@@ -30,6 +30,7 @@ CREATE TABLE Libro(
     edicion INTEGER NOT NULL,
     idioma VARCHAR(12) NOT NULL,
     paginas INTEGER NOT NULL,
+    listaDeseo BOOLEAN NOT NULL,
     CHECK (paginas>0)
 );
 
@@ -135,6 +136,12 @@ CREATE VIEW EditorialLibro AS
     FROM Libro,Editorial,Publicaciones 
     WHERE Libro.ISBN = Publicaciones.ISBN AND Editorial.clave = Publicaciones.claveEditorial;
 
+CREATE VIEW ListaDeDeseos AS
+    SELECT *FROM Libro WHERE listaDeseo = TRUE;
+
+CREATE VIEW LibrosUser AS
+    SELECT *FROM Libro WHERE listaDeseo = FALSE;
+
 /*CREATE VIEW LibrosUsuario AS
     SELECT Libro.titulo, Autor.nombre As nombreAutor, Autor.apellido As apellidoAutor 
     FROM Libro,Autor,Usuarios,Biblioteca_usuario,Escribe
@@ -146,13 +153,13 @@ INSERT INTO Usuarios VALUES
     ('Juana','Ambrosio','Lucas','femenino','Juanita@hotmail.com','Juanis','chambitas');
 
 INSERT INTO Libro VALUES
-    ('9786076227725','Desarrollo y Programación en entornos web',1,'Español',284),
-    ('9788498384406','Harry Potter y la cámara secreta',15,'Español',296),
-    ('9788498384383','Harry Potter y la piedra filosofal',15,'Español',256),
-    ('9786075294551','Entrevista con el vampiro',1,'Español',384),
-    ('9786071609175','El camino de los muertos',1,'Español',272),
-    ('9786076226612','Python Fácil',1,'Español',284),
-    ('9786075383613','Big Data con Python',1,'Español',284);
+    ('9786076227725','Desarrollo y Programación en entornos web',1,'Español',284,FALSE),
+    ('9788498384406','Harry Potter y la cámara secreta',15,'Español',296,FALSE),
+    ('9788498384383','Harry Potter y la piedra filosofal',15,'Español',256,FALSE),
+    ('9786075294551','Entrevista con el vampiro',1,'Español',384,FALSE),
+    ('9786071609175','El camino de los muertos',1,'Español',272,FALSE),
+    ('9786076226612','Python Fácil',1,'Español',284,FALSE),
+    ('9786075383613','Big Data con Python',1,'Español',284,TRUE);
 
 INSERT INTO Autor(nombre,apellido,pais) VALUES
     ('Angel','Gutiérrez','México'),
