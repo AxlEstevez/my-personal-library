@@ -1,8 +1,8 @@
-var express = require('express');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var router = express.Router();
-var connection = require('./connection');
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const router = express.Router();
+const connection = require('./connection');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
@@ -108,7 +108,19 @@ router.post('/Sign_in', (req,res) =>{
 // Este se eliminara una vez entregada la versión final.
 // ------------------------------------------------------
 router.get('/user', (req,res) =>{
-  res.render('test');
+  var queryBook = connection.query('SELECT * FROM LibroAutor', (error , results) => {
+      if(error){
+        console.log(error);
+      }
+      else{
+        if(results.length > 0){
+          res.render('test', {results});
+        }
+        else{
+          console.log("Error , datos no encontrados");
+        }
+      }
+    });
 });
 
 
