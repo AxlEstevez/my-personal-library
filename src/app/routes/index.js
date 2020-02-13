@@ -3,6 +3,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const connection = require('./connection');
+const rp = require('request-promise');
+const cheerio = require('cheerio');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
@@ -123,6 +125,14 @@ router.get('/user', (req,res) =>{
     });
 });
 
+router.get('testing', (req,res) =>{
+  var isbn = req.body.ISBN;
+  const url = 'https://books.google.es/';
+  const search = '/search?tbm=bks&q=' + isbn;
+  var elementos = (url,search) =>{
+    return 0;
+  };
+});
 
 module.exports = router;
 
