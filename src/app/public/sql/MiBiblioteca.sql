@@ -21,7 +21,7 @@ CREATE TABLE Usuarios(
     password VARCHAR(16),
     PRIMARY KEY(correo,usuario),
     CHECK(sexo = 'masculino' OR sexo = 'femenino'),
-    CHECK(LENGTH(password) > 8 AND LENGTH(password) < 16)
+    CHECK(LENGTH(password) >= 8 AND LENGTH(password) <= 16)
 );
 
 CREATE TABLE Libro(
@@ -31,7 +31,7 @@ CREATE TABLE Libro(
     idioma VARCHAR(12) NOT NULL,
     paginas INTEGER NOT NULL,
     listaDeseo BOOLEAN NOT NULL,
-    CHECK (paginas>0)
+    CHECK (paginas>=0)
 );
 
 CREATE TABLE Autor(

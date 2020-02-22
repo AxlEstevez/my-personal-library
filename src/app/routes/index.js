@@ -3,6 +3,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const router = express.Router();
 const connection = require('./connection');
+const rp = require('request-promise');
+const cheerio = require('cheerio');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index');
@@ -25,7 +27,8 @@ router.get('/add', (req,res) =>{
 // ocupar esos datos.
 // --------------------------------------------------------
 router.get('/addBook', (req,res) => {
-  connection.query("SELECT clave,nombre,apellido FROM Autor", (err,results,fields) =>{
+  connection.query("SELECT clave,nombre,apellido FROM Autor", 
+    (err,results,fields) =>{
     if(err) throw err;
     res.render('addBook',{
       autors: results
@@ -57,17 +60,24 @@ router.post('/Sign_up',(req,res,next) =>{
     usuario: req.body.userName,
     password: req.body.pass
   };
-  connection.query("INSERT INTO Usuarios SET ?", registro,
-  (error,results) => {
-    if(error){
-      console.log(error);
-      res.send("Error , verifica tus datos <a href='Sign_up' class='btn btn-danger'>Continuar</a>" ,);
-      return;
-    }
-    else{
-      res.render("user_index", {mensaje : '1'});
-    }
-  });
+  if(registro.password.length < 8 || registro.password.length > 16){
+    res.send("<script>alert('Tu contraseña es menor a 8 o mayor a 16');"
+    + "window.location.href='Sign_up';</script>");
+  }
+  else{
+    connection.query("INSERT INTO Usuarios SET ?", registro,
+    (error,results) => {
+      if(error){
+        console.log(error);
+        res.send("Estamos experimentando problemas" + 
+          "Perdón por las molestias qu esto causa :C");
+        return;
+      }
+      else{
+        res.render("user_index", {mensaje : '1'});
+      }
+    });
+  }  
 });
 // Fin del metodo
 // --------------------------------------------------------
@@ -79,26 +89,34 @@ router.post('/Sign_in', (req,res) =>{
   var usuario = req.body.identidad;
   var pass = req.body.password;
   if (usuario && pass) {
-    connection.query("SELECT usuario,password,correo FROM Usuarios WHERE usuario = ? OR correo = ? AND password = ?",
+    connection.query("SELECT usuario,password,correo FROM Usuarios WHERE usuario "
+      + "= ? OR correo = ? AND password = ?",
     [usuario,usuario,pass], (error,results,fields) =>{
       if(results.length > 0){
-        if(results[0].usuario == usuario || results[0].correo == usuario && results[0].password == pass){
+        if(results[0].usuario == usuario || 
+            results[0].correo == usuario && results[0].password == pass){
           req.session.loggedin = true;
           req.session.userName = usuario;
           res.render('user_index', {mensaje: '1'});
         }
         else{
-          res.send("<script type='text/javascript'> alert('Usuario ó contraseña incorreta'); window.location.href='Sign_in';</script>");
+          res.send("<script type='text/javascript'>" +
+             "alert('Usuario ó contraseña incorreta');" +
+             "window.location.href='Sign_in';</script>");
         }
       }
       else{
-        res.send("<script type='text/javascript'> alert('Usuario no Encontrado ... verifica tus datos'); window.location.href='Sign_in';</script>");
+        res.send("<script type='text/javascript'>" +
+          " alert('Usuario no Encontrado ... verifica tus datos');" + 
+          "window.location.href='Sign_in';</script>");
       }
       res.end();
     });
   }
   else{
-    res.send("<script type='text/javascript'> alert('Ingresa usuario y contraseña'); window.location.href='Sign_in';</script>");
+    res.send("<script type='text/javascript'> " + 
+      "alert('Ingresa usuario y contraseña');" +
+      "window.location.href='Sign_in';</script>");
   }
 });
 
@@ -108,7 +126,8 @@ router.post('/Sign_in', (req,res) =>{
 // Este se eliminara una vez entregada la versión final.
 // ------------------------------------------------------
 router.get('/user', (req,res) =>{
-  var queryBook = connection.query('SELECT * FROM LibroAutor', (error , results) => {
+  var queryBook = connection.query('SELECT * FROM LibroAutor',
+     (error , results) => {
       if(error){
         console.log(error);
       }
@@ -123,6 +142,14 @@ router.get('/user', (req,res) =>{
     });
 });
 
+router.get('testing', (req,res) =>{
+  var isbn = req.body.ISBN;
+  const url = 'https://books.google.es/';
+  const search = '/search?tbm=bks&q=' + isbn;
+  var elementos = (url,search) =>{
+    return 0;
+  };
+});
 
 module.exports = router;
 
