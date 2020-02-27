@@ -60,24 +60,51 @@ router.post('/Sign_up',(req,res,next) =>{
     usuario: req.body.userName,
     password: req.body.pass
   };
-  if(registro.password.length < 8 || registro.password.length > 16){
-    res.send("<script>alert('Tu contraseña es menor a 8 o mayor a 16');"
-    + "window.location.href='Sign_up';</script>");
-  }
-  else{
-    connection.query("INSERT INTO Usuarios SET ?", registro,
-    (error,results) => {
-      if(error){
-        console.log(error);
-        res.send("Estamos experimentando problemas" + 
-          "Perdón por las molestias qu esto causa :C");
-        return;
+  var aux = {
+    usuario : req.body.userName,
+    email : req.body.correo
+  };
+  // En está línea de código manda un error
+  // Error sql : 1064
+  // Es un error de sintaxis pero no encuentro el verdadero error
+  connection.query("SELECT usuario,correo FROM Usuarios WHERE usuario = ? AND WHERE correo = ?"
+    ,[aux.usuario,aux.email], (err, results) =>{
+      if(err){
+        console.log(err);
+        console.log("Si hay error estas aquí 1");
       }
       else{
-        res.render("user_index", {mensaje : '1'});
+        if(results.length > 0){
+          console.log("Si no hay error,pero si hay registro, estoy aquí");
+          res.send("<script type='text/javascript'>" +
+          "alert('Usuario ó contraseña incorreta');" +
+          "window.location.href='Sign_in';</script>");
+        }
+        else{
+          if(registro.password.length < 8 || registro.password.length > 16){
+            res.send("<script>alert('Tu contraseña es menor a 8 o mayor a 16');"
+            + "window.location.href='Sign_up';</script>");
+            console.log("Si ya paso todo lo demas, pero no comples"+ 
+              " con la integridad de la bd, estas aquí");
+          }
+          else{
+            connection.query("INSERT INTO Usuarios SET ?", registro,
+            (error,results) => {
+              if(error){
+                console.log(error);
+                res.send("Estamos experimentando problemas" + 
+                  "Perdón por las molestias qu esto causa :C");
+                return;
+              }
+              else{
+                console.log("Bien ahora no hay problemas :D");
+                res.render("user_index", {mensaje : '1'});
+              }
+            });
+          }  
+        }
       }
     });
-  }  
 });
 // Fin del metodo
 // --------------------------------------------------------
