@@ -7,7 +7,7 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.render('home');
 });
 
 // Ruta para la página que permite agregar nuevos registros
@@ -58,26 +58,53 @@ router.post('/Sign_up',(req,res,next) =>{
     sexo: req.body.sexo,
     correo: req.body.correo,
     usuario: req.body.userName,
-    password: req.body.pass
+    password: req.body.password
   };
-  if(registro.password.length < 8 || registro.password.length > 16){
-    res.send("<script>alert('Tu contraseña es menor a 8 o mayor a 16');"
-    + "window.location.href='Sign_up';</script>");
-  }
-  else{
-    connection.query("INSERT INTO Usuarios SET ?", registro,
-    (error,results) => {
-      if(error){
-        console.log(error);
-        res.send("Estamos experimentando problemas" + 
-          "Perdón por las molestias qu esto causa :C");
-        return;
+  var aux = {
+    usuario : req.body.userName,
+    email : req.body.correo
+  };
+  // En está línea de código manda un error
+  // Error sql : 1064
+  // Es un error de sintaxis pero no encuentro el verdadero error
+  connection.query("SELECT usuario,correo FROM Usuarios WHERE usuario = ? AND WHERE correo = ?"
+    ,[aux.usuario,aux.email], (err, results) =>{
+      if(err){
+        console.log(err);
+        console.log("Si hay error estas aquí 1");
       }
       else{
-        res.render("user_index", {mensaje : '1'});
+        if(results.length > 0){
+          console.log("Si no hay error,pero si hay registro, estoy aquí");
+          res.send("<script type='text/javascript'>" +
+          "alert('Usuario ó contraseña incorreta');" +
+          "window.location.href='Sign_in';</script>");
+        }
+        else{
+          if(registro.password.length < 8 || registro.password.length > 16){
+            res.send("<script>alert('Tu contraseña es menor a 8 o mayor a 16');"
+            + "window.location.href='Sign_up';</script>");
+            console.log("Si ya paso todo lo demas, pero no comples"+ 
+              " con la integridad de la bd, estas aquí");
+          }
+          else{
+            connection.query("INSERT INTO Usuarios SET ?", registro,
+            (error,results) => {
+              if(error){
+                console.log(error);
+                res.send("Estamos experimentando problemas" + 
+                  "Perdón por las molestias qu esto causa :C");
+                return;
+              }
+              else{
+                console.log("Bien ahora no hay problemas :D");
+                res.render("user_index", {mensaje : '1'});
+              }
+            });
+          }  
+        }
       }
     });
-  }  
 });
 // Fin del metodo
 // --------------------------------------------------------
@@ -97,7 +124,7 @@ router.post('/Sign_in', (req,res) =>{
             results[0].correo == usuario && results[0].password == pass){
           req.session.loggedin = true;
           req.session.userName = usuario;
-          res.render('user_index', {mensaje: '1'});
+          res.render('perfile', {mensaje: '1',usuario: usuario});
         }
         else{
           res.send("<script type='text/javascript'>" +
@@ -119,6 +146,10 @@ router.post('/Sign_in', (req,res) =>{
       "window.location.href='Sign_in';</script>");
   }
 });
+
+router.get('/contacto', (req,res) =>{
+  res.render("contacto");
+})
 
 
 // ruta para testear codigo tanto del lado del ciente
@@ -149,6 +180,24 @@ router.get('testing', (req,res) =>{
   var elementos = (url,search) =>{
     return 0;
   };
+});
+
+router.get("/perfile", (req,res) =>{
+  res.render("perfile");
+})
+
+router.get("/config", (req,res) =>{
+  var query = connection.query("SELECT *FROM Usuarios", 
+    (error,results) =>{
+      if(error){
+        console.log("Tienes un error de MySQL");
+      }
+      else{
+        if(results.length > 0){
+          res.render("config",{results});
+        }
+      }
+    });
 });
 
 module.exports = router;
