@@ -1,0 +1,42 @@
+<% include partials/encabezadoPerfil %>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Configuraci&oacute;n general de la cuenta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td class="etiqueta"><%= results[0].Nombre %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Apellido Paterno</th>
+                <td class="etiqueta"><%= results[0].apellido_p %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Apellido Materno</th>
+                <td class="etiqueta"><%= results[0].apellido_m %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Correo</th>
+                <td class="etiqueta"><%= results[0].correo %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <td class="etiqueta"><%= results[0].usuario %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Constrase&ntilde;a</th>
+                <td class="etiqueta">*******</td>
+                <td class="link-editar">Editar</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

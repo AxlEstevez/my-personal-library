@@ -7,7 +7,7 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.render('home');
 });
 
 // Ruta para la página que permite agregar nuevos registros
@@ -58,7 +58,7 @@ router.post('/Sign_up',(req,res,next) =>{
     sexo: req.body.sexo,
     correo: req.body.correo,
     usuario: req.body.userName,
-    password: req.body.pass
+    password: req.body.password
   };
   var aux = {
     usuario : req.body.userName,
@@ -124,7 +124,7 @@ router.post('/Sign_in', (req,res) =>{
             results[0].correo == usuario && results[0].password == pass){
           req.session.loggedin = true;
           req.session.userName = usuario;
-          res.render('user_index', {mensaje: '1'});
+          res.render('perfile', {mensaje: '1',usuario: usuario});
         }
         else{
           res.send("<script type='text/javascript'>" +
@@ -146,6 +146,10 @@ router.post('/Sign_in', (req,res) =>{
       "window.location.href='Sign_in';</script>");
   }
 });
+
+router.get('/contacto', (req,res) =>{
+  res.render("contacto");
+})
 
 
 // ruta para testear codigo tanto del lado del ciente
@@ -176,6 +180,24 @@ router.get('testing', (req,res) =>{
   var elementos = (url,search) =>{
     return 0;
   };
+});
+
+router.get("/perfile", (req,res) =>{
+  res.render("perfile");
+})
+
+router.get("/config", (req,res) =>{
+  var query = connection.query("SELECT *FROM Usuarios", 
+    (error,results) =>{
+      if(error){
+        console.log("Tienes un error de MySQL");
+      }
+      else{
+        if(results.length > 0){
+          res.render("config",{results});
+        }
+      }
+    });
 });
 
 module.exports = router;
