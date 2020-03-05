@@ -9,22 +9,7 @@
         <link rel="icon" type="image/icon" href="/images/logo2.1.png">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script src="/javascripts/sweetalert2.js"></script>
-        <script text="text/javascript">
-            function showPass(){
-                var object = document.getElementById("pass");
-                var boton = document.getElementById("botonPass"); 
-                if(object.type == "password")
-                {
-                    object.type = "text";
-                    boton.innerHTML = "Ocultar Contrase&ntilde;a";
-                }
-                else
-                {
-                    object.type = "password";
-                    boton.innerHTML = "Mostrar Contrase&ntilde;a";
-                }
-            }
-        </script>
+        <script src="/javascripts/main.js"></script>
         <style>
 		.login-form {
 			padding: 35px;
@@ -90,7 +75,7 @@
                 <input type="text" name="apellido_p" placeholder="Apellido Paterno" required>
                 <input type="text" name="apellido_m" placeholder="Apellido Materno" required>
                 <label for="sexo" style="margin-right:5px;">Sexo</label>
-                <select>
+                <select name="sexo">
                     <option value="null"></option>
                     <option value="masculino">Masculino</option>
                     <option value="femenino">Femenino</option>
@@ -99,7 +84,8 @@
                 <input type="text" name="userName" placeholder="Nombre de usuario" required>
                 <input id="pass" type="password" name="password" 
                     pattern=".{8,16}" placeholder="Password 8 a 16 caracteres" required>
-                <input class="evento" type="button" value="Mostrar Contraseña" onclick="showPass();">
+                <input class="evento" type="button" id="botonPass" 
+                    value="Mostrar Contraseña" onclick="showPass();">
 				<input type="submit" value="Enviar">
 			</form>
 		</div>
