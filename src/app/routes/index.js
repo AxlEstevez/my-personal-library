@@ -70,8 +70,8 @@ router.post('/Sign_up',(req,res,next) =>{
   connection.query("SELECT *FROM Usuarios",
     (err, results) =>{
       if(err){
-        console.log(err);
-        console.log("Si hay error estas aquí 1");
+        res.render("viewsError", {error:3});
+        return;
       }
       else{
         if(results.length > 0){
@@ -92,8 +92,6 @@ router.post('/Sign_up',(req,res,next) =>{
           else{
             if(registro.password.length < 8 || registro.password.length > 16){
               res.render("viewsError", {error: 2});
-              console.log("Si ya paso todo lo demas, pero no comples"+ 
-                " con la integridad de la bd, estas aquí");
             }
             else{
               connection.query("INSERT INTO Usuarios SET ?", registro,
@@ -128,30 +126,24 @@ router.post('/Sign_in', (req,res) =>{
       + "= ? OR correo = ? AND password = ?",
     [usuario,usuario,pass], (error,results,fields) =>{
       if(results.length > 0){
-        if(results[0].usuario == usuario || 
-            results[0].correo == usuario && results[0].password == pass){
+        if( (results[0].usuario == usuario || 
+            results[0].correo == usuario) && results[0].password == pass){
           req.session.loggedin = true;
           req.session.userName = usuario;
           res.render('perfile', {mensaje: '1',usuario: usuario});
         }
         else{
-          res.send("<script type='text/javascript'>" +
-             "alert('Usuario ó contraseña incorreta');" +
-             "window.location.href='Sign_in';</script>");
+          res.render("viewsError", {error:4});
         }
       }
       else{
-        res.send("<script type='text/javascript'>" +
-          " alert('Usuario no Encontrado ... verifica tus datos');" + 
-          "window.location.href='Sign_in';</script>");
+        res.render("viewsError", {error:5});
       }
       res.end();
     });
   }
   else{
-    res.send("<script type='text/javascript'> " + 
-      "alert('Ingresa usuario y contraseña');" +
-      "window.location.href='Sign_in';</script>");
+    res.render("viewsError", {error:6});
   }
 });
 
