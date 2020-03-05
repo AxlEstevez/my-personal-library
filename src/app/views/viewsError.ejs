@@ -23,6 +23,20 @@
             text-decoration: none;
             font-size: 15px;
         }
+        .error{
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #39a5c5;
+            font-size: 15px;
+            width: 115px;
+            text-align: center;
+            height: 25px;
+            border-radius: 15px;
+        }
+        .error:hover{
+            text-decoration: none;
+            background-color: #f73939;
+        }
     </style>
 </head>
 <body>
@@ -34,6 +48,15 @@
     <% } %>
     <% if(error == 3){ %>
         <% include partials/error3 %> 
+    <% } %>
+    <% if(error == 4){ %>
+        <% include partials/error4 %> 
+    <% } %>
+    <% if(error == 5){ %>
+        <% include partials/error5 %> 
+    <% } %>
+    <% if(error == 6){ %>
+        <% include partials/error6 %> 
     <% } %>
 </body>
 </html>
