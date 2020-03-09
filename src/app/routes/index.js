@@ -1,11 +1,13 @@
-var express = require('express');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var router = express.Router();
-var connection = require('./connection');
+const express = require('express');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+const router = express.Router();
+const connection = require('./connection');
+const rp = require('request-promise');
+const cheerio = require('cheerio');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.render('home');
 });
 
 // Ruta para la página que permite agregar nuevos registros
@@ -25,7 +27,8 @@ router.get('/add', (req,res) =>{
 // ocupar esos datos.
 // --------------------------------------------------------
 router.get('/addBook', (req,res) => {
-  connection.query("SELECT clave,nombre,apellido FROM Autor", (err,results,fields) =>{
+  connection.query("SELECT clave,nombre,apellido FROM Autor", 
+    (err,results,fields) =>{
     if(err) throw err;
     res.render('addBook',{
       autors: results
@@ -55,19 +58,59 @@ router.post('/Sign_up',(req,res,next) =>{
     sexo: req.body.sexo,
     correo: req.body.correo,
     usuario: req.body.userName,
-    password: req.body.pass
+    password: req.body.password
   };
-  connection.query("INSERT INTO Usuarios SET ?", registro,
-  (error,results) => {
-    if(error){
-      console.log(error);
-      res.send("Error , verifica tus datos <a href='Sign_up' class='btn btn-danger'>Continuar</a>" ,);
-      return;
-    }
-    else{
-      res.render("user_index", {mensaje : '1'});
-    }
-  });
+  var aux = {
+    usuario : req.body.userName,
+    email : req.body.correo
+  };
+  // En está línea de código manda un error
+  // Error sql : 1064
+  // Es un error de sintaxis pero no encuentro el verdadero error
+  connection.query("SELECT *FROM Usuarios",
+    (err, results) =>{
+      if(err){
+        res.render("viewsError", {error:3});
+        return;
+      }
+      else{
+        if(results.length > 0){
+          var i = 0;
+          var id = false;
+          while(i < results.length){
+            if(aux.usuario == results[i].usuario ||
+                aux.email == results[i].correo){
+                  console.log("Hay registros duplicados");
+                  id = true;
+                  break;
+            }
+            i++;
+          }
+          if(id){
+            res.render("viewsError", {error: 1});
+          }
+          else{
+            if(registro.password.length < 8 || registro.password.length > 16){
+              res.render("viewsError", {error: 2});
+            }
+            else{
+              connection.query("INSERT INTO Usuarios SET ?", registro,
+              (error,results) => {
+                if(error){
+                  console.log(error);
+                  res.render("viewsError", {error: 3});
+                  return;
+                }
+                else{
+                  console.log("Bien ahora no hay problemas :D");
+                  res.render("perfile", {mensaje : '1',usuario: registro.usuario});
+                }
+              });
+            }
+          }
+        }  
+      }
+    });
 });
 // Fin del metodo
 // --------------------------------------------------------
@@ -79,28 +122,34 @@ router.post('/Sign_in', (req,res) =>{
   var usuario = req.body.identidad;
   var pass = req.body.password;
   if (usuario && pass) {
-    connection.query("SELECT usuario,password,correo FROM Usuarios WHERE usuario = ? OR correo = ? AND password = ?",
+    connection.query("SELECT usuario,password,correo FROM Usuarios WHERE usuario "
+      + "= ? OR correo = ? AND password = ?",
     [usuario,usuario,pass], (error,results,fields) =>{
       if(results.length > 0){
-        if(results[0].usuario == usuario || results[0].correo == usuario && results[0].password == pass){
+        if( (results[0].usuario == usuario || 
+            results[0].correo == usuario) && results[0].password == pass){
           req.session.loggedin = true;
           req.session.userName = usuario;
-          res.render('user_index', {mensaje: '1'});
+          res.render('perfile', {mensaje: '1',usuario: usuario});
         }
         else{
-          res.send("<script type='text/javascript'> alert('Usuario ó contraseña incorreta'); window.location.href='Sign_in';</script>");
+          res.render("viewsError", {error:4});
         }
       }
       else{
-        res.send("<script type='text/javascript'> alert('Usuario no Encontrado ... verifica tus datos'); window.location.href='Sign_in';</script>");
+        res.render("viewsError", {error:5});
       }
       res.end();
     });
   }
   else{
-    res.send("<script type='text/javascript'> alert('Ingresa usuario y contraseña'); window.location.href='Sign_in';</script>");
+    res.render("viewsError", {error:6});
   }
 });
+
+router.get('/contacto', (req,res) =>{
+  res.render("contacto");
+})
 
 
 // ruta para testear codigo tanto del lado del ciente
@@ -108,9 +157,48 @@ router.post('/Sign_in', (req,res) =>{
 // Este se eliminara una vez entregada la versión final.
 // ------------------------------------------------------
 router.get('/user', (req,res) =>{
-  res.render('test');
+  var queryBook = connection.query('SELECT * FROM LibroAutor',
+     (error , results) => {
+      if(error){
+        console.log(error);
+      }
+      else{
+        if(results.length > 0){
+          res.render('test', {results});
+        }
+        else{
+          console.log("Error , datos no encontrados");
+        }
+      }
+    });
 });
 
+router.get('testing', (req,res) =>{
+  var isbn = req.body.ISBN;
+  const url = 'https://books.google.es/';
+  const search = '/search?tbm=bks&q=' + isbn;
+  var elementos = (url,search) =>{
+    return 0;
+  };
+});
+
+router.get("/perfile", (req,res) =>{
+  res.render("perfile");
+})
+
+router.get("/config", (req,res) =>{
+  var query = connection.query("SELECT *FROM Usuarios", 
+    (error,results) =>{
+      if(error){
+        console.log("Tienes un error de MySQL");
+      }
+      else{
+        if(results.length > 0){
+          res.render("config",{results});
+        }
+      }
+    });
+});
 
 module.exports = router;
 
