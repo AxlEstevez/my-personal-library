@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <link rel="icon" type="image/icon" href="/images/logo2.1.png">
+        <style>
+            .label{
+                color: #ffffff;
+                text-decoration: none;
+                background-color: #39a5c5;
+                font-size: 15px;
+                width: 115px;
+                text-align: center;
+                height: 25px;
+                border-radius: 15px;
+            }
+            .label:hover{
+                
+                background-color: #3db18a;
+                text-decoration: none;
+                font-size: 15px;
+            }
+            .error{
+                color: #ffffff;
+                text-decoration: none;
+                background-color: #39a5c5;
+                font-size: 15px;
+                width: 115px;
+                text-align: center;
+                height: 25px;
+                border-radius: 15px;
+            }
+            .error:hover{
+                text-decoration: none;
+                background-color: #f73939;
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            Swal.fire({ 
+                icon: 'success',
+                title: 'Hecho',
+                text: 'Ha cerrado sesión exitosamente',
+                showConfirmButton: false,
+                footer: '<a href=\"/\" class=\"label\">Aceptar</a>'
+                });
+        </script>
+    </body>
+</html>

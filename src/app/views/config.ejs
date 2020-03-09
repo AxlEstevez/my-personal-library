@@ -7,29 +7,35 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th>Nombre</th>
-                <td class="etiqueta"><%= results[0].Nombre %></td>
-                <td class="link-editar">Editar</td>
+            <tr id="tr-actual">
+                <th id="nombre-th">Nombre</th>
+                <td id="nombre-td" class="etiqueta"><%= usuario.Nombre %></td>
+                <td id="nombre" class="etiqueta" style="display:none;">
+                    <input type="text" id="nombre-in">
+                </td>
+                
+                <td class="link-editar" id="boton-editar" onclick="cambia('tr-actual');">
+                    Editar
+                </td>
             </tr>
             <tr>
                 <th>Apellido Paterno</th>
-                <td class="etiqueta"><%= results[0].apellido_p %></td>
+                <td class="etiqueta"><%= usuario.apellido_p %></td>
                 <td class="link-editar">Editar</td>
             </tr>
             <tr>
                 <th>Apellido Materno</th>
-                <td class="etiqueta"><%= results[0].apellido_m %></td>
+                <td class="etiqueta"><%= usuario.apellido_m %></td>
                 <td class="link-editar">Editar</td>
             </tr>
             <tr>
                 <th>Correo</th>
-                <td class="etiqueta"><%= results[0].correo %></td>
+                <td class="etiqueta"><%= usuario.correo %></td>
                 <td class="link-editar">Editar</td>
             </tr>
             <tr>
                 <th>Nombre de Usuario</th>
-                <td class="etiqueta"><%= results[0].usuario %></td>
+                <td class="etiqueta"><%= usuario.usuario %></td>
                 <td class="link-editar">Editar</td>
             </tr>
             <tr>
