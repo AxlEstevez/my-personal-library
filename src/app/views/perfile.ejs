@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+       <title>Liber/Usuario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./stylesheets/perfil.css" rel="stylesheet">
+        <script src="/javascripts/sweetalert2.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+        <link rel="stylesheet" type="text/css" href="./stylesheets/css/bootstrap.css">
+        <link rel="icon" type="image/icon" href="/images/logo2.1.png">
+    </head>
+    <body>
+        <% if(mensaje == '1'){ %>
+            <script type="text/javascript">
+                Swal.fire({ 
+                    icon: 'success',
+                    title: 'Te Damos la Bienvenida',
+                    text: 'Presiona ok para continuar' 
+                });
+            </script>
+        <% } %>   
+        <% include partials/headerPerfil %>
+        <% include partials/menuPerfil %>
+        <% include partials/principalPerfil %>
+    </body>
+</html>

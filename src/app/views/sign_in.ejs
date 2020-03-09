@@ -6,16 +6,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="/stylesheets/main.css" rel="stylesheet">
         <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
-        <link rel="icon" type="image/icon" href="/images/libros.png">
+        <link rel="icon" type="image/icon" href="/images/logo2.1.png">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script src="/javascripts/sweetalert2.js"></script>
         <style>
 		.login-form {
-			width: 300px;
+			padding: 35px;
+			width: 550px;
 			margin: 0 auto;
 			font-family: Tahoma, Geneva, sans-serif;
-            top: 100px;
+            top: 50px;
             position: relative;
+			border: 1px solid #7c7979;;
 		}
 		.login-form h1 {
 			text-align: center;
@@ -34,7 +36,7 @@
 		.login-form input[type="submit"] {
 			width: 100%;
 			padding: 15px;
-			background-color: #30cc9d;
+			background-color: #2b2828;
 			border: 0;
 			box-sizing: border-box;
 			cursor: pointer;
@@ -48,15 +50,14 @@
 		</style>
     </head>
     <body>
-        <% include partials/nav %>
+		<% include partials/nav %>
         <div class="login-form">
-		<center><img src="./images/login-1.png" alt="icono" class="icon-login"></center>
-		<h1>Iniciar sesi&oacute;n</h1>
-		<form action="Sign_in" method="POST">
-			<input type="text" name="identidad" placeholder="Username o correo" required>
-			<input type="password" name="password" placeholder="Password" required>
-			<input type="submit">
-		</form>
-	</div>
+			<h1>Sing in</h1>
+			<form action="Sign_in" method="POST">
+				<input type="text" name="identidad" placeholder="Username o correo" required>
+				<input type="password" name="password" placeholder="Password" required>
+				<input type="submit" value="Enviar">
+			</form>
+		</div>
     </body>
 </html>
