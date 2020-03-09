@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Liber|Home</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/stylesheets/add_book.css">
+        <link rel="icon" type="image/icon" href="/images/logo2.1.png">
+        <link rel="stylesheet" type="text/css" href="./stylesheets/perfil.css" >
+    </head>
+    <body>
+        <div class="encabezado">
+                 <p class="slogan">Te damos la bienvenida a tu biblioteca</p>
+        </div>
+        <% include partials/menuPerfil %>
+        <div class="addBook">
+            <h1>Nuevo Libro</h1>
+            <div class="login-form">
+                <form action="addBook" method="POST">
+                    <label>Titulo del libro</label>
+                    <input type="text" name="nombre_libro" placeholder="Nombre del Libro" required><br/>
+                    <label>Nombre del autor</label>
+                    <select name="autor">
+                        <% if(autores.length > 0){ %>
+                            <% for(var i = 0; i < autores.length;i++){ %>
+                                <option value=""> 
+                                    <%= autores[i].nombre + " " + autores[i].apellido %>
+                                </option> 
+                            <% } %>
+                        <% } %>
+                    </select>
+                    <label>Editorial</label>
+                    <input type="text" name="editorial" placeholder="Editorial" required><br/>
+                    <label>Idioma</label>
+                    <input type="text" name="idioma" placeholder="Idioma" required><br/>
+                    <label>ISBN</label>
+                    <input type="text" name="isbn" placeholder="ISBN" required><br/>
+                    <label>Género</label>
+                    <select>
+                        <option value=" ">Seleccionar Género </option>
+                        <option value="Romantico">Romantico</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Misterio">Misterio</option>
+                        <option value="Terror">Terror</option>
+                        <option value="Comedia">Comedia</option>
+                        <option value="Infantil">Infantil</option>
+                        <option value="Tecnologia">Tecnología</option>
+                        <option value="Novela">Novela</option>
+                        <option value="Aventura">Aventura</option>
+                        <option value="CienciaFiccion">Ciencia Ficción</option>
+                        <option value="Poesia">Poesía</option>
+                        <option value="Autoayuda">Autoayuda</option>
+                        <option value="Historia">Historia</option>
+
+                    </select>
+                   <br/>
+                    <input type="submit" value="Agregar">
+                </form>
+            </div>
+			
+		</div>
+      <!--<% include partials/footer %>-->  
+    </body>
+</html>
