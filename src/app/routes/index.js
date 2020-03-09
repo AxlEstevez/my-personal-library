@@ -1,10 +1,11 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const router = express.Router();
 const connection = require('./connection');
-const rp = require('request-promise');
-const cheerio = require('cheerio');
+const MysqlStore = require('express-mysql-session')(session);
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('home');
@@ -130,6 +131,9 @@ router.post('/Sign_in', (req,res) =>{
             results[0].correo == usuario) && results[0].password == pass){
           req.session.loggedin = true;
           req.session.userName = usuario;
+          req.session.loggedin = true;
+          req.session.username = usuario;
+          res.redirect("/autentication");
           res.render('perfile', {mensaje: '1',usuario: usuario});
         }
         else{
@@ -147,9 +151,24 @@ router.post('/Sign_in', (req,res) =>{
   }
 });
 
+router.get("/autentication", (req,res)=>{
+  if(req.session.loggedin){
+    res.render('perfile', {mensaje: '1',usuario: req.session.username});
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
+  res.end(); 
+})
+
+router.get("/salir", (req,res) =>{
+  req.session.destroy();
+  res.render("logout");
+});
+
 router.get('/contacto', (req,res) =>{
   res.render("contacto");
-})
+});
 
 
 // ruta para testear codigo tanto del lado del ciente
@@ -187,17 +206,34 @@ router.get("/perfile", (req,res) =>{
 })
 
 router.get("/config", (req,res) =>{
-  var query = connection.query("SELECT *FROM Usuarios", 
-    (error,results) =>{
+  if(req.session.loggedin){
+    var query = connection.query("SELECT *FROM Usuarios" 
+      , (error,results) =>{
       if(error){
-        console.log("Tienes un error de MySQL");
+        console.log(error);
+       res.render("viewsError", {error:3});
       }
       else{
         if(results.length > 0){
-          res.render("config",{results});
+          i = 0;
+          while(i < results.length){
+            console.log(req.session.username);
+            if(req.session.username == results[i].usuario || 
+                req.session.username == results[i].correo ){
+                  res.render("config",{usuario: results[i]});
+                }
+            i++;
+          }
+        }
+        else{
+          res.render("viewsError", {error:3});
         }
       }
     });
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
 });
 
 module.exports = router;
