@@ -28,13 +28,19 @@ router.get('/add', (req,res) =>{
 // ocupar esos datos.
 // --------------------------------------------------------
 router.get('/addBook', (req,res) => {
-  connection.query("SELECT clave,nombre,apellido FROM Autor", 
+  if(req.session.loggedin){
+    connection.query("SELECT clave,nombre,apellido FROM Autor", 
     (err,results,fields) =>{
     if(err) throw err;
     res.render('addBook',{
-      autors: results
+      autors: results,
+      usuario: req.session.username
     });
   });
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
 });
 // fin de la función
 // --------------------------------------------------------
