@@ -11,19 +11,24 @@
 
 #img-ae{
     border-radius: 500px;
-    margin-top: 85px;
-    margin-left: 50px;
+    margin-top: 75px;
+    margin-left: 1px;
     z-index: 2;
 }
 #img-ar{
     margin-top: 300px;
-    margin-left: 15px;
+    margin-left: -10px;
     z-index: 1;
 }
 #img-av{
-    margin-top: -125px;
+    margin-top: -135px;
     margin-left: -120px;
     z-index: 2;
+}
+
+#img-jo{
+    margin-left: -60px;
+    margin-top: 250px;
 }
 .imagen-info{
     margin-top: 25px;
