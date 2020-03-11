@@ -6,10 +6,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="/stylesheets/main.css" rel="stylesheet">
         <link rel="stylesheet" href="/stylesheets/css/bootstrap.min.css">
-        <link rel="icon" type="image/icon" href="/images/logo2.1.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="icon" type="image/icon" href="/images/logo2.2.png">
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
         <script src="/javascripts/sweetalert2.js"></script>
         <script src="/javascripts/main.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+            $("#show_hide_password a").on('click', function(event) {
+            event.preventDefault();
+            if($('#show_hide_password input').attr("type") == "text"){
+            $('#show_hide_password input').attr('type', 'password');
+            $('#show_hide_password i').addClass( "fa-eye-slash" );
+            $('#show_hide_password i').removeClass( "fa-eye" );
+            }else if($('#show_hide_password input').attr("type") == "password"){
+            $('#show_hide_password input').attr('type', 'text');
+            $('#show_hide_password i').removeClass( "fa-eye-slash" );
+            $('#show_hide_password i').addClass( "fa-eye" );
+             }
+        });
+    });
+        </script>
         <style>
 		.login-form {
 			padding: 35px;
@@ -75,11 +94,24 @@
                 <input type="text" name="apellido_p" placeholder="Apellido Paterno" required>
                 <input type="text" name="apellido_m" placeholder="Apellido Materno" required>
                 <label for="sexo" style="margin-right:5px;">Sexo</label>
-                <select name="sexo">
-                    <option value="null"></option>
-                    <option value="masculino">Masculino</option>
-                    <option value="femenino">Femenino</option>
-                </select>
+                <fieldset class="form-group">
+                    <div class="row">
+                      <div class="col-sm-10">
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="femenino" checked>
+                          <label class="form-check-label" for="gridRadios1">
+                            Femenino
+                          </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="masculino">
+                          <label class="form-check-label" for="gridRadios2">
+                            Masculino
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
                 <input type="text" name="correo" placeholder="ejemplo@correo.com" required>
                 <input type="text" name="userName" placeholder="Nombre de usuario" required>
                 <input id="pass" type="password" name="password" 
