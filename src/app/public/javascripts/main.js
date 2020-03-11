@@ -17,10 +17,6 @@ function cambia(contenedor) {
     var botonEditar = document.getElementById("boton-editar");
     var input = document.getElementById("nombre");
     var td = document.getElementById("nombre-td");
-    var nuevo = document.getElementById("nombre-in");
-    var btonViejo = document.getElementById("boton-editar");
-    var quitar = document.getElementById("nombre-th");
-    var nuevoBton = creaBoton();
 
 
     if(input.style.display == "none"){
@@ -46,12 +42,13 @@ function guarda(){
     var botonEditar = document.getElementById("boton-editar");
     var input = document.getElementById("nombre");
     var td = document.getElementById("nombre-td");
+    var nomInput = document.getElementById("nombre-in");
 
-    td.textContent = input.value;
-
+    console.log(nomInput.value);    
     if(input.style.display == "block" &&
         botonEditar.textContent == "Guardar"){
         
+        td.innerHTML = nomInput.value;
         input.style.display = "none";
         botonEditar.textContent = "Editar";
         botonEditar.onclick = cambia;
