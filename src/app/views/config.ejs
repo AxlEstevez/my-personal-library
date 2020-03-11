@@ -9,12 +9,16 @@
         <tbody>
             <tr id="tr-actual">
                 <th id="nombre-th">Nombre</th>
-                <td id="nombre-td" class="etiqueta"><%= usuario.Nombre %></td>
+                <td>
+                    <p id="nombre-td" class="etiqueta">
+                        <%= usuario.Nombre %>
+                    </p>
+                </td>
                 <td id="nombre" class="etiqueta" style="display:none;">
                     <input type="text" id="nombre-in">
                 </td>
                 
-                <td class="link-editar" id="boton-editar" onclick="cambia('tr-actual');">
+                <td class="link-editar" id="boton-editar" onclick="cambia();">
                     Editar
                 </td>
             </tr>
