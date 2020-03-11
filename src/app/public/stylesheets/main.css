@@ -8,7 +8,7 @@ body{
 }
 .icon{
     height: 100px;
-    width: 120px;
+    width: 100px;
 }
 .header{
     width: 100%;
@@ -26,8 +26,8 @@ body{
     color: #4d4949;
     position: relative;
     top: 25px;
-    margin-left: 100px;
-    font-family: fantasy;
+    margin-left: 85px;
+    font-family: Helvetica;
     font-size: 20px;
 }
 
@@ -40,7 +40,7 @@ body{
     left: 0px;
     width: 100%;
     height: 650px;
-    top: 150px;
+    top: 0px;
 }
 .img-banner{
     width: 100%;
@@ -49,12 +49,12 @@ body{
 
 .footer-content{
     position: relative;
-    bottom: -250px;
     background-color: #1d1c1c;
     color: #ffffff;
     height: 100px;
     left: 0px;
     width: 100%;
+    margin-top: 5%;
 }
 .parrafo-footer{
     position: relative;
@@ -89,3 +89,5 @@ body{
 a:hover{
     text-decoration: none;
 }
+
+
