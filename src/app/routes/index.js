@@ -176,6 +176,9 @@ router.get('/contacto', (req,res) =>{
   res.render("contacto");
 });
 
+router.get('/acerca', (req,res) => {
+  res.render("acerca");
+})
 
 // ruta para testear codigo tanto del lado del ciente
 // como peticiones al servidor.
@@ -208,7 +211,16 @@ router.get('testing', (req,res) =>{
 });
 
 router.get("/perfile", (req,res) =>{
-  res.render("perfile");
+  if(req.session.loggedin){
+    res.render("perfile", {
+      usuario:req.session.userName,
+      mensaje: '2'
+    });
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
+  
 })
 
 router.get("/config", (req,res) =>{
