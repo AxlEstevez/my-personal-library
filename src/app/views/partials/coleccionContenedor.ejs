@@ -1,0 +1,20 @@
+<div class="coleccion">
+    <% if(results.length > 0){ %>
+        <% for(var i = 0; i < results.length; i++){ %>
+            <div class="book">
+                <div id="isbn">
+                    <p><%= results[i].isbn %></p>
+                </div>
+                <div id="titulo">
+                    <p><%= results[i].titulo %> </p>
+                </div>
+                <div id="autorNombre">
+                    <p><%= results[i].nombre %> <%= results[i].apellido %></p>
+                </div>
+            </div>
+        <% }%>
+    <% } %> 
+    <% if(results.length == 0){ %> 
+        <h1 class="notice">Sin libros registrados a&uacute;n</h1>
+    <% } %> 
+</div>

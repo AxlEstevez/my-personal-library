@@ -28,16 +28,104 @@ router.get('/add', (req,res) =>{
 // ocupar esos datos.
 // --------------------------------------------------------
 router.get('/addBook', (req,res) => {
-  connection.query("SELECT clave,nombre,apellido FROM Autor", 
-    (err,results,fields) =>{
+  if(req.session.loggedin){
+    connection.query("SELECT nombre,apellido FROM Bibliotecas where usuario = ?", 
+    [req.session.username],(err,results,fields) =>{
     if(err) throw err;
     res.render('addBook',{
-      autors: results
+      autors: results,
+      usuario: req.session.username
     });
   });
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
 });
 // fin de la función
 // --------------------------------------------------------
+
+router.post('/addBook', (req,res) => {
+  if(req.session.loggedin){
+    // ----------------------------------------------------
+    var autor = req.body.autor;
+    if(autor == "otro"){
+      autor = req.body.autor2;
+    }
+    // ----------------------------------------------------
+
+    // ----------------------------------------------------
+    var genero = req.body.genero;
+    // ----------------------------------------------------
+
+    // ----------------------------------------------------
+    // Líneas para ingresar un libro nuevo a la BD.
+    var libroNuevo = {
+      ISBN: req.body.isbn,
+      titulo: req.body.titulo,
+      edicion: req.body.edicion,
+      idioma: req.body.idioma,
+      paginas: req.body.paginas,
+      listaDeseo: req.body.lista
+    };
+    var query = connection.query('SELECT *FROM Libro '+
+    'WHERE ISBN = ?',[libroNuevo.isbn], (error,results) =>{
+      if(error){
+        console.log(error)
+        res.render("viewsError", {error:3});
+      }else{
+        if(results.length > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+      }
+    });
+    if(!query){
+     connection.query('INSERT INTO Libro SET ?',libroNuevo,
+      (error,results) => {
+        if(error){
+          console.log(error);
+        }
+    // Fin de líneas para ingresar libros a BD.
+    // ----------------------------------------------------
+        else{
+         var correo = connection.query('Select correo from Usuario '+
+         'where usuario = ?',[req.session.usuario], (error,results) =>{
+           if(error){
+            res.render("viewsError", {error:3});
+           }
+           else{
+             if(results.length > 0){
+               return results[0];
+             }
+             else{
+               return null;
+             }
+           }
+         });
+         if(correo != null){
+           connection.query('insert into Biblioteca_usuario SET ?',
+           [libroNuevo.ISBN,correo,req.session.username],(error,results) =>{
+             if(error){
+               res.render("viewsError", {error:3});
+             }
+             else{
+               // aquí el código para ingresar datos
+               // en las demas tablas.
+             }
+           })
+         }
+        }
+    });
+    }
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
+});
+
 router.get('/Sign_up', (req,res) =>{
   res.render('Sign_up');
 });
@@ -71,8 +159,8 @@ router.post('/Sign_up',(req,res,next) =>{
   connection.query("SELECT *FROM Usuarios",
     (err, results) =>{
       if(err){
-        res.render("viewsError", {error:3});
-        return;
+        console.log(err);
+        console.log("Si hay error estas aquí 1");
       }
       else{
         if(results.length > 0){
@@ -91,24 +179,23 @@ router.post('/Sign_up',(req,res,next) =>{
             res.render("viewsError", {error: 1});
           }
           else{
-            if(registro.password.length < 8 || registro.password.length > 16){
-              res.render("viewsError", {error: 2});
-            }
-            else{
-              connection.query("INSERT INTO Usuarios SET ?", registro,
+            connection.query("INSERT INTO Usuarios SET ?", [registro],
               (error,results) => {
                 if(error){
                   console.log(error);
+                  console.log("El error que jode esta aquí");
                   res.render("viewsError", {error: 3});
                   return;
                 }
                 else{
                   console.log("Bien ahora no hay problemas :D");
-                  res.render("perfile", {mensaje : '1',usuario: registro.usuario});
+                  req.session.loggedin = true;
+                  req.session.username = registro.usuario;
+                 res.redirect('autentication');
                 }
               });
             }
-          }
+          
         }  
       }
     });
@@ -134,7 +221,6 @@ router.post('/Sign_in', (req,res) =>{
           req.session.loggedin = true;
           req.session.username = usuario;
           res.redirect("/autentication");
-          res.render('perfile', {mensaje: '1',usuario: usuario});
         }
         else{
           res.render("viewsError", {error:4});
@@ -153,12 +239,35 @@ router.post('/Sign_in', (req,res) =>{
 
 router.get("/autentication", (req,res)=>{
   if(req.session.loggedin){
-    res.render('perfile', {mensaje: '1',usuario: req.session.username});
+    var queryBook = connection.query('SELECT isbn,titulo,nombre,'+
+    'apellido from Bibliotecas where usuario = ?',
+    [req.session.username] ,(error , results) => {
+     if(error){
+       console.log(error);
+     }
+     else{
+       if(results.length > 0){
+         console.log(results);
+         res.render('perfile', {
+           mensaje : 1 ,
+           results,
+          usuario: req.session.username
+        });
+       }
+       else{
+         console.log("Error , datos no encontrados");
+         res.render('perfile',{
+          mensaje : 1 ,
+          results,
+          usuario: req.session.username
+         });
+       }
+     }
+   });
   }
   else{
     res.render("viewsError", {error:7});
   }
-  res.end(); 
 })
 
 router.get("/salir", (req,res) =>{
@@ -170,14 +279,40 @@ router.get('/contacto', (req,res) =>{
   res.render("contacto");
 });
 
+router.get('/acerca', (req,res) => {
+  res.render("acerca");
+})
+
+router.get('/coleccion', (req,res) =>{
+  if(req.session.loggedin){
+    var queryBook = connection.query('SELECT isbn,titulo,nombre,apellido where usuario = ?',
+    session.loggedin.username ,(error , results) => {
+     if(error){
+       console.log(error);
+     }
+     else{
+       if(results.length > 0){
+         res.render('perfil', {mensaje : 1 ,results});
+       }
+       else{
+         console.log("Error , datos no encontrados");
+       }
+     }
+   });
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
+});
+
 
 // ruta para testear codigo tanto del lado del ciente
 // como peticiones al servidor.
 // Este se eliminara una vez entregada la versión final.
 // ------------------------------------------------------
-router.get('/user', (req,res) =>{
-  var queryBook = connection.query('SELECT * FROM LibroAutor',
-     (error , results) => {
+router.get('/coleccion', (req,res) =>{
+  var queryBook = connection.query('SELECT isbn,titulo,nombre,apellido where usuario = ?',
+     session.loggedin.usuario ,(error , results) => {
       if(error){
         console.log(error);
       }
@@ -192,18 +327,18 @@ router.get('/user', (req,res) =>{
     });
 });
 
-router.get('testing', (req,res) =>{
-  var isbn = req.body.ISBN;
-  const url = 'https://books.google.es/';
-  const search = '/search?tbm=bks&q=' + isbn;
-  var elementos = (url,search) =>{
-    return 0;
-  };
-});
-
 router.get("/perfile", (req,res) =>{
-  res.render("perfile");
-})
+  if(req.session.loggedin){
+    res.render("perfile", {
+      usuario:req.session.userName,
+      mensaje: '2'
+    });
+  }
+  else{
+    res.render("viewsError", {error:7});
+  }
+  
+});
 
 router.get("/config", (req,res) =>{
   if(req.session.loggedin){
