@@ -118,9 +118,9 @@ CREATE TABLE GeneroDe(
     ON DELETE CASCADE 
 );
 
-CREATE VIEW LibroAutor AS 
+/*CREATE VIEW LibroAutor AS 
     SELECT Libro.titulo, Autor.nombre As AutorNombre,Autor.apellido AS AutorApellido FROM Libro,Autor,Escribe  
-    WHERE Libro.ISBN = Escribe.ISBN AND Autor.clave = Escribe.claveAutor;
+    WHERE Libro.ISBN = Escribe.ISBN AND Autor.clave = Escribe.claveAutor;*/
 
 CREATE VIEW SagaLibros AS
     SELECT Libro.titulo, Sagas.nombre AS NombreSaga FROM Libro,Sagas,Pertenece 
@@ -226,3 +226,10 @@ INSERT INTO Biblioteca_usuario VALUES
     ('9788498384383','axlestevez@hotmail.com','AxlEstevez'),
     ('9788498384406','axlestevez@hotmail.com','AxlEstevez'),
     ('9786076227725','Juanita@hotmail.com','Juanis');
+
+
+DROP TABLE IF EXISTS `LibroAutor`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `LibroAutor`  AS  select `Libro`.`ISBN` AS `isbn`,`Libro`.`titulo` AS `titulo`,`Autor`.`nombre` AS `nombre`,`Autor`.`apellido` AS `apellido` from ((`Libro` join `Autor`) join `Escribe`) where `Libro`.`ISBN` = `Escribe`.`ISBN` and `Autor`.`clave` = `Escribe`.`claveAutor` ;
+
+DROP TABLE IF EXISTS `Bibliotecas`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `Bibliotecas`  AS  select `LibroAutor`.`isbn` AS `isbn`,`LibroAutor`.`titulo` AS `titulo`,`LibroAutor`.`nombre` AS `nombre`,`LibroAutor`.`apellido` AS `apellido`,`Usuarios`.`usuario` AS `usuario`,`Usuarios`.`correo` AS `correo` from ((`LibroAutor` join `Usuarios`) join `Biblioteca_usuario`) where `LibroAutor`.`isbn` = `Biblioteca_usuario`.`ISBN` and `Usuarios`.`usuario` = `Biblioteca_usuario`.`usuario` and `Usuarios`.`correo` = `Biblioteca_usuario`.`correo` ;

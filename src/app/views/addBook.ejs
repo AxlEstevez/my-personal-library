@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="/stylesheets/add_book.css">
         <link rel="icon" type="image/icon" href="/images/logo2.1.png">
         <link rel="stylesheet" type="text/css" href="./stylesheets/perfil.css" >
+        <script src="./javascripts/main.js"></script>
     </head>
     <body>
         <% include partials/headerPerfil %>
@@ -16,10 +17,12 @@
             <h1>Nuevo Libro</h1>
             <div class="login-form">
                 <form action="addBook" method="POST">
+                    <label>ISBN</label>
+                    <input type="text" name="isbn" placeholder="ISBN" required><br/>
                     <label>Titulo del libro</label>
-                    <input type="text" name="nombre_libro" placeholder="Nombre del Libro" required><br/>
+                    <input type="text" name="titulo" placeholder="Nombre del Libro" required><br/>
                     <label>Nombre del autor</label>
-                    <select name="autor">
+                    <select name="autor" id="Autor" onchange="verificaSelect();">
                         <% if(autors.length > 0){ %>
                             <% for(var i = 0; i < autors.length;i++){ %>
                                 <option value=""> 
@@ -27,15 +30,18 @@
                                 </option> 
                             <% } %>
                         <% } %>
+                        <option value="otro">otro</option>
+                        <input type="text" name="autor2" id="autor2" 
+                        style="display: none;" placeholder="autor" required><br/>
                     </select>
-                    <label>Editorial</label>
-                    <input type="text" name="editorial" placeholder="Editorial" required><br/>
+                    <label>Edicion</label>
+                    <input type="text" name="edicion" placeholder="1" required><br/>
+                    <label>p&aacute;ginas</label>
+                    <input type="text" name="paginas" placeholder="páginas del libro" required><br/>
                     <label>Idioma</label>
                     <input type="text" name="idioma" placeholder="Idioma" required><br/>
-                    <label>ISBN</label>
-                    <input type="text" name="isbn" placeholder="ISBN" required><br/>
                     <label>Género</label>
-                    <select>
+                    <select name="genero">
                         <option value=" ">Seleccionar Género </option>
                         <option value="Romantico">Romantico</option>
                         <option value="Drama">Drama</option>
@@ -50,9 +56,9 @@
                         <option value="Poesia">Poesía</option>
                         <option value="Autoayuda">Autoayuda</option>
                         <option value="Historia">Historia</option>
-
                     </select>
                    <br/>
+                   <input type="text" id="lista" name="lista" value="0" style="display: none;">
                     <input type="submit" value="Agregar">
                 </form>
             </div>

@@ -4,12 +4,12 @@ function showPass(){
     if(object.type == "password")
     {
         object.type = "text";
-        boton.value = "Ocultar Contrase&ntilde;a";
+        boton.value = "Ocultar Contraseña";
     }
     else
     {
         object.type = "password";
-        boton.value = "Mostrar Contrase&ntilde;a";
+        boton.value = "Mostrar Contraseña";
     }
 }
 
@@ -53,4 +53,14 @@ function guarda(){
         botonEditar.textContent = "Editar";
         botonEditar.onclick = cambia;
         }
+}
+
+function verificaSelect(){
+    var seleccion = document.getElementById("Autor");
+    var despliegue = document.getElementById("autor2");
+    
+    if(seleccion.value == "otro"){
+        seleccion.style.display = "none";
+        despliegue.style.display = "block";
+    }
 }

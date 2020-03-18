@@ -1,0 +1,16 @@
+.coleccion{
+    position: relative;
+    margin-top: 180px;
+    margin-left: 450px;
+}
+
+.book{
+    display: inline-block;
+    margin-right: 150px;
+    width: 275px;
+    margin-top: 50px;
+}
+
+.notice{
+    color: #dad4d4;
+}
