@@ -1,3 +1,26 @@
+'use strict';
+
+const e = React.createElement;
+
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+
+  render() {
+    if (this.state.liked) {
+      return 'You liked this.';
+    }
+
+    return e(
+      'button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Like'
+    );
+  }
+}
+
 function showPass(){
     var object = document.getElementById("pass");
     var boton = document.getElementById("botonPass"); 
@@ -64,3 +87,6 @@ function verificaSelect(){
         despliegue.style.display = "block";
     }
 }
+
+const domContainer = document.querySelector('#contendedor');
+ReactDOM.render(e(LikeButton), domContainer);

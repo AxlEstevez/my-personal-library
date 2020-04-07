@@ -29,6 +29,21 @@ h1{
     height:500px;
     overflow-x: hidden;
 }
+.login-form::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+.login-form::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 5px;
+}
+.login-form::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+.login-form:-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
 .login-form h1 {
     text-align: center;
     color: #4d4d4d;
