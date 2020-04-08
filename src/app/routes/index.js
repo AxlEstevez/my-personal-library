@@ -64,14 +64,37 @@ router.post('/addBook', (req,res) => {
             res.render("viewsError", {error:3});
           }
           if(valor > 0){
-            consulta.getClaveAutor(dataAutor,(error,clave)=>{
+            consulta.getEmailUser(req.session.username,(error,result)=>{
               if(error){
+                console.log(error);
                 res.render("viewsError", {error:3});
-              }
-              if(clave != 0){
-                
+              }else{
+                if(result != 0){
+                  console.log(result[0].correo);
+                  var registro = {
+                    ISBN : libro.ISBN,
+                    correo: result[0].correo,
+                    usuario: req.session.username
+                  };
+                  console.log("Voy a agregar libro");
+                  consulta.insertInLibrary(registro,
+                  (error,status) =>{
+                      if(error){
+                        console.log(error);
+                        res.render("viewsError", {error:3});
+                      }
+                      else{
+                        if(status > 0){
+                          res.send("Libro agregado");
+                        }
+                      }
+                  });// fin de insertar en biblioteas.
+                }
               }
             });
+          }
+          else{
+            // Aquí va el codigo para agregar un nuevo autor
           }
         });
       }// Fin if de valor libro
