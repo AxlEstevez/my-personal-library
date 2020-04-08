@@ -23,6 +23,7 @@
                     <input type="text" name="titulo" placeholder="Nombre del Libro" required><br/>
                     <label>Nombre del autor</label>
                     <select name="autor" id="Autor" onchange="verificaSelect();">
+                        <option value="null"> </option>
                         <% if(autors.length > 0){ %>
                             <% for(var i = 0; i < autors.length;i++){ %>
                                 <option value=<%=autors[i].nombre + "#" + autors[i].apellido%>> 
@@ -30,9 +31,7 @@
                                 </option> 
                             <% } %>
                         <% } %>
-                        <option value="otro">otro</option>
-                        <input type="text" name="autor2" id="autor2" 
-                        style="display: none;" placeholder="autor" required><br/>
+                        <option value="otro" id="otro">otro</option>
                     </select>
                     <label>Edicion</label>
                     <input type="text" name="edicion" placeholder="1" required><br/>
@@ -61,9 +60,16 @@
                    <input type="text" id="lista" name="lista" value="0" style="display: none;">
                     <input type="submit" value="Agregar">
                 </form>
+                <div id="autor">
+                    <input type="button" id="cerrar" value="x" onclick="cerrarVentana();">
+                    <h3>Autor nuevo</h3>
+                    <label for="nombre: ">Nombre</label>
+                    <input type="text" id="nombreAutor">
+                    <label for="apellidos: ">Apellidos</label>
+                    <input type="text" id="apellidosAutor">
+                    <input type="button" id="enviarAutor" value="Enviar" onclick="agregaAutor();">
+                </div>
             </div>
-			
 		</div>
-      <!--<% include partials/footer %>-->  
     </body>
 </html>
