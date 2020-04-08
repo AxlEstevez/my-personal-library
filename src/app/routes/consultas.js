@@ -178,18 +178,35 @@ module.exports.insetaEnEscribe = (clave,isbn, fn) =>{
     });
 }
 
-module.exports.insertBibliotecaUsuario = (usuario,isbn,fn) =>{
+module.exports.insertInLibrary =(registro, fn) =>{
     var sql = "INSERT INTO Biblioteca_usuario SET ?";
+    connection.query(sql,[registro],
+    (error,results)=>{
+        if(error){
+            fn(error,null);
+        }
+        else{
+            fn(null,1);
+        }
+    });
+}
 
-    connection.query(sql,[usuario.usuario,usuario.correo],
-        (error,results) =>{
-            if(error){
-                fn(0);
+module.exports.getEmailUser = (user, callback) =>{
+    var sql = "SELECT correo FROM Usuarios WHERE usuario = ?";
+
+    connection.query(sql,[user], (error,results)=>{
+        if(error){
+            callback(error,null);
+        }
+        else{
+            if(results.length > 0){
+                callback(null,results);
             }
             else{
-                fn(1);
+                callback(null, 0);
             }
-        });
+        }
+    });
 }
 // Cuando un libro nuevo se ingresa es necesario ingresar
 // datos a las tablas de libro, autor y Biblioteca1-usuario
