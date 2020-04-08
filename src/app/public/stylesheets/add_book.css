@@ -77,3 +77,33 @@ h1{
 .login-form label{
     font-family: Tahoma, Geneva, sans-serif;
 }
+
+#autor{
+    border: 1px solid #cfcbcb;
+    position: absolute;
+    top: 150px;
+    background-color: #ffffff;
+    padding: 50px;
+    display: none;
+}
+
+#enviarAutor{
+    background-color: #0F2027;
+    color: #ffffff;
+    border-color: #0F2027;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#cerrar{
+    position: absolute;
+    background-color: #0F2027;
+    border-color: #0F2027;
+    color: #ffffff;
+    border-radius: 50px;
+    top: 5px;
+    left: 5px;
+    height: 23px;
+    text-align: center;
+    font-size: small;
+}
