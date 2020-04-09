@@ -3,12 +3,13 @@ body{
 }
 .header-nav{
     background-image: linear-gradient(to right,#0F2027, #203A43,#2C5364);
-    position: fixed;
+    position: absolute;
     top: 0;
-    width: 81%;
+    max-width: 1300px;
+    width: 80%;
     right: 0px;
     /*border: 1px solid blue;*/
-    height: 150px;
+    height: 120px;
     color: #ffffff;
 }
 
@@ -19,6 +20,7 @@ body{
     width: 250px;
     color: #ffffff;
     height: 100%;
+    
 }
 
 .piePage{
@@ -34,7 +36,7 @@ body{
 
 .icon{
     width: 100px;
-    height: 100px;
+    height: 70px;
     margin-top: 50px;
     margin-left: 25px;
 }
@@ -48,7 +50,7 @@ body{
     color: #58595a;
     margin-top: 35px;
     font-size: 18px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: Helvetica;
 }
 .link-menu:hover{
     text-decoration: none;
@@ -57,18 +59,23 @@ body{
 
 .user-info{
     /*border: 1px solid #ffffff;*/
-    width: 280px;
-    margin-left: 80px;
+    width: 100%;
+    max-width: 280px;
+    margin-top: 40px;
+    margin-left: 120px;
     margin-top: 35px;
+    position: relative;
+    color: #ffffff;
 }
 
 .contenedor-menu{
     margin-top: 40px;
+    position: relative;
 }
 
 .menu-titulo{
     color: #0F2027;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: Helvetica;
     margin-left: 80px;
     margin-top: 50px;
 }
@@ -125,7 +132,7 @@ body{
 #titulo{
     color: #000000;
     font-style: oblique;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family: Helvetica;
     font-size: 20px;
 }
 

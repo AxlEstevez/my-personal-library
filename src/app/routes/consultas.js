@@ -208,8 +208,69 @@ module.exports.getEmailUser = (user, callback) =>{
         }
     });
 }
-// Cuando un libro nuevo se ingresa es necesario ingresar
-// datos a las tablas de libro, autor y Biblioteca1-usuario
-// isbn, titulo,edicion,idioma,paginas,listaDeseo -- Libro
-// clave,nombre,apellido,pais -- Autor
-// isbn, correo, usuario -- Biblioteca_usuario
+
+module.exports.InsertaAutor = (autor,callback) =>{
+    const sql = "INSERT INTO Autor(nombre,apellido)"+
+    " VALUES(?,?)";
+    connection.query(sql,[autor.nombre,autor.apellido],
+    (error,results)=>{
+        if(error){
+            callback(error,null);
+        }
+        else{
+            callback(null,1);
+        }
+    });
+}
+
+module.exports.DameAutores = (username,callback) =>{
+    const sql = "SELECT nombre, apellido FROM Bibliotecas"+
+    " where usuario = ?";
+    connection.query(sql,[username],(error,results)=>{
+        if(error){
+            callback(error,null);
+        }
+        else{
+            if(results.length > 0){
+                callback(null,results);
+            }
+            else{
+                callback(null,0);
+            }
+        }
+    });
+}
+
+module.exports.DameGeneros = (callback) =>{
+    const sql = "SELECT *FROM Generos";
+    connection.query(sql,(error,results)=>{
+        if(error){
+            callback(error,results);
+        }
+        else{
+            if(results.length > 0){
+                callback(null,results);
+            }
+            else{
+                callback(null,results);
+            }
+        }
+    });
+}
+
+module.exports.DameEditorial = (callback) =>{
+    var sql = "SELECT *FROM Editorial";
+    connection.query(sql,(error,results) =>{
+        if(error){
+            callback(error,null);
+        }
+        else{
+            if(results.length > 0){
+                callback(null,results);
+            }
+            else{
+                callback(null,results);
+            }
+        }
+    });
+}

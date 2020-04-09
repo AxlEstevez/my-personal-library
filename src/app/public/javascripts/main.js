@@ -55,10 +55,9 @@ function guarda(){
         }
 }
 
-function verificaSelect(){
+function verificaSelectAutor(){
     var seleccion = document.getElementById("Autor");
     var despliegue = document.getElementById("autor");
-    
     if(seleccion.value == "otro"){
         despliegue.style.display = "block";
     }
@@ -86,7 +85,7 @@ function agregaAutor() {
   }
 }
 
-function cerrarVentana(){
+function cerrarVentanaA(){
   var ventana = document.getElementById("autor");
 
   ventana.style.display = "none";

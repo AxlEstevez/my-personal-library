@@ -23,14 +23,38 @@ router.get('/', function(req, res, next) {
 // --------------------------------------------------------
 router.get('/addBook', (req,res) => {
   if(req.session.loggedin){
-    connection.query("SELECT nombre, apellido FROM Bibliotecas where usuario = ?", 
-    [req.session.username],(err,results,fields) =>{
-    if(err) throw err;
-    res.render('addBook',{
-      autors: results,
-      usuario: req.session.username
+    consulta.DameAutores(req.session.userName,
+    (error,result)=>{
+      if(error){
+        console.log(error)
+        res.render("viewsError", {error:7});    
+      }
+      else{
+        var autores = result;
+        consulta.DameGeneros((error,result)=>{
+          if(error){
+            res.render("viewsError", {error:7});
+          }
+          else{
+            var generos = result;
+            consulta.DameEditorial((error,result)=>{
+              if(error){
+                res.render("viewsError", {error:7});
+              }
+              else{
+                var editorial = result;
+                res.render("addBook",{
+                  autors: autores,
+                  usuario: req.session.username,
+                  generos: generos,
+                  editoriales: editorial
+                });
+              }
+            })
+          }
+        });
+      }
     });
-  });
   }
   else{
     res.render("viewsError", {error:7});
@@ -85,19 +109,19 @@ router.post('/addBook', (req,res) => {
                       }
                       else{
                         if(status > 0){
-                          res.send("Libro agregado");
+                          res.redirect("/coleccion");
                         }
                       }
                   });// fin de insertar en biblioteas.
-                }
-              }
+                }// Fin de id getEmail.
+              } // Fin de else error correo.
             });
-          }
+          } // Fin if de busca autor.
           else{
             // Aquí va el codigo para agregar un nuevo autor
           }
         });
-      }// Fin if de valor libro
+      }// Fin if de busca libro libro
       else{
         consulta.insertaLibro(libro);
       }
@@ -221,7 +245,7 @@ router.post('/Sign_in', (req,res) =>{
 
 router.get("/autentication", (req,res)=>{
   if(req.session.loggedin){
-    var queryBook = connection.query('SELECT isbn,titulo,nombre,'+
+    connection.query('SELECT isbn,titulo,nombre,'+
     'apellido from Bibliotecas where usuario = ?',
     [req.session.username] ,(error , results) => {
      if(error){
@@ -267,17 +291,28 @@ router.get('/acerca', (req,res) => {
 
 router.get('/coleccion', (req,res) =>{
   if(req.session.loggedin){
-    var queryBook = connection.query('SELECT isbn,titulo,nombre,apellido where usuario = ?',
-    session.loggedin.username ,(error , results) => {
+    connection.query('SELECT isbn,titulo,nombre,'+
+    'apellido from Bibliotecas where usuario = ?',
+    [req.session.username] ,(error , results) => {
      if(error){
        console.log(error);
      }
      else{
        if(results.length > 0){
-         res.render('perfil', {mensaje : 1 ,results});
+         console.log(results);
+         res.render('coleccion', {
+           mensaje : 1 ,
+           results,
+          usuario: req.session.username
+        });
        }
        else{
          console.log("Error , datos no encontrados");
+         res.render('coleccion',{
+          mensaje : 0 ,
+          results,
+          usuario: req.session.username
+         });
        }
      }
    });
@@ -292,36 +327,6 @@ router.get('/coleccion', (req,res) =>{
 // como peticiones al servidor.
 // Este se eliminara una vez entregada la versión final.
 // ------------------------------------------------------
-router.get('/coleccion', (req,res) =>{
-  var queryBook = connection.query('SELECT isbn,titulo,nombre,apellido where usuario = ?',
-     session.loggedin.usuario ,(error , results) => {
-      if(error){
-        console.log(error);
-      }
-      else{
-        if(results.length > 0){
-          res.render('test', {results});
-        }
-        else{
-          console.log("Error , datos no encontrados");
-        }
-      }
-    });
-});
-
-router.get("/perfile", (req,res) =>{
-  if(req.session.loggedin){
-    res.render("perfile", {
-      usuario:req.session.userName,
-      mensaje: '2'
-    });
-  }
-  else{
-    res.render("viewsError", {error:7});
-  }
-  
-});
-
 router.get("/config", (req,res) =>{
   if(req.session.loggedin){
     var query = connection.query("SELECT *FROM Usuarios" 
@@ -354,4 +359,3 @@ router.get("/config", (req,res) =>{
 });
 
 module.exports = router;
-
