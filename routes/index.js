@@ -153,7 +153,6 @@ router.post('/Sign_up',(req,res,next) =>{
     nombre:  req.body.nombre,
     apellido_p: req.body.apellido_p,
     apellido_m: req.body.apellido_m,
-    sexo: req.body.sexo,
     correo: req.body.correo,
     usuario: req.body.userName,
     password: req.body.password
