@@ -82,7 +82,7 @@
 
                 <div class="col">   
                     <label>Editorial</label>
-                    <select  name="editorial" id="Editorial" onchange="verificaSelect();">
+                    <select  name="editorial" id="Editorial" onchange="verificaSelectEditorial();">
                         <option value="null"> </option>
                         <% if(editoriales.length > 0){ %>
                             <% for(var i = 0; i < editoriales.length;i++){ %>
@@ -91,7 +91,7 @@
                                 </option> 
                             <% } %>
                         <% } %>
-                        <option value="otro" id="otro">otro</option>
+                        <option value="otraEditorial" id="otro">otro</option>
                     </select>
                    
                 </div>
@@ -120,7 +120,7 @@
                 </div>
 
                 <div id="editorial">
-                    <input type="button" id="cerrar" value="x" onclick="cerrarVentana();">
+                    <input type="button" id="cerrar" value="x" onclick="cerrarVentanaEditorial();">
                     <h3>Editorial nuevo</h3>
                     <label for="nombre: ">Editorial</label>
                     <input type="text" class="form-control" id="nombreEditorial">

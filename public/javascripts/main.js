@@ -125,3 +125,35 @@ function cerrarVentanaGenero(){
 
     ventana.style.display = "none";
 }
+
+function verificaSelectEditorial(){
+    var seleccion = document.getElementById("Editorial");
+    var despliegue = document.getElementById("editorial");
+
+    despliegue.style.display = "block";
+}
+
+function agregarEditorial(){
+    var nombre = document.getElementById("nombreEditorial");
+    var destino = document.getElementById("Editorial");
+    var origen = document.getElementById("Editorial");
+    var valor = String(nombre.value);
+    var opt = document.createElement("option");
+    var optionOtro = document.getElementById("otraEditorial");
+
+    opt.value = valor;
+    opt.textContent = valor;
+
+    destino.insertBefore(opt,optionOtro);
+
+    if(origen.style.display == "block"){
+        origen.style.display = "none";
+        nombre.value = "";
+    }   
+}
+
+function cerrarVentanaEditorial(){
+    var ventana = document.getElementById("editorial");
+
+    ventana.style.display = "none";
+}
