@@ -1,0 +1,126 @@
+body{
+    background-color: ghostwhite;
+    color: black;
+    
+}
+.nav-content{
+    background-color: #e2fff6;
+    
+}
+.container-fluid{
+	padding:.1rem;
+}
+
+.icon{
+    width: 50px;
+    max-width: 70%;
+    height: auto;
+    margin-left: 30px;
+}
+.header{
+    width: 100%;
+}
+
+.menu-header{
+    background-color: #ffffff;
+    height: 150px;
+    width: 100%;
+    left: 0px;
+  }
+  
+
+.nav-link{
+    color: #4d4949;
+    top: 20px;
+    margin-left: 12rem;
+    font-family: Helvetica;
+    font-size: 18px;
+    
+}
+
+.link-menu:hover{
+    color: #82dfc3;
+}
+
+.img-banner{
+  width: 98%;
+  max-width: 1400px;
+  height: auto;
+  align-items: center;
+}
+
+.footer-content{
+    position: relative;
+    background-color: #1d1c1c;
+    color: #ffffff;
+    height: 7rem;
+    width: 100%;
+    margin-left: -1.5px;
+    margin-bottom: -1rem;
+}
+.parrafo-footer{
+    position: relative;
+    top: 3.3rem;
+    left: 100px;
+}
+
+.icon-social{
+    height: auto;
+    width: 100%;
+    max-width: 32px;
+    margin-left: 50px;
+}
+
+.contacto-li{ 
+    display: inline;
+    text-decoration: none;
+}
+
+.contacto{
+    position: relative;
+    left: 45%;
+    margin-top: 3rem;
+    height: auto;
+}
+
+.link{
+    text-decoration: none;
+
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.form-check-inline{
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.panel-body{
+    text-align: justify;
+}
+
+.panel-heading{
+    text-align: center;
+}
+
+.img-a{
+    max-width: 600px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+}
+
+#navbarNav{
+    margin-top: 3rem;
+}
+
+.log{
+    width: 50px;
+    max-width: 70%;
+    height: auto;
+    margin-left: 30px;
+}

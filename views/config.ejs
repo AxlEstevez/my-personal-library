@@ -1,0 +1,73 @@
+
+
+<% include partials/encabezadoPerfil %>
+<br>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Configuraci&oacute;n general de la cuenta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="tr-actual">
+                <th id="nombre-th">Nombre</th>
+                <td>
+                    <p id="nombre-td" class="etiqueta">
+                        <%= usuario.Nombre %>
+                    </p>
+                </td>
+                <td id="nombre" class="etiqueta" style="display:none;">
+                    <input type="text" id="nombre-in">
+                </td>
+                
+                <td class="link-editar" id="boton-editar" onclick="cambia();">
+                    Editar
+                </td>
+            </tr>
+            <tr>
+                <th>Apellido Paterno</th>
+                <td class="etiqueta"><%= usuario.apellido_p %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Apellido Materno</th>
+                <td class="etiqueta"><%= usuario.apellido_m %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Correo</th>
+                <td class="etiqueta"><%= usuario.correo %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <td class="etiqueta"><%= usuario.usuario %></td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th>Constrase&ntilde;a</th>
+                <td class="etiqueta">*******</td>
+                <td class="link-editar">Editar</td>
+            </tr>
+            <tr>
+                <th> </th>
+                <td ></td>
+                <td>  </td>
+                 
+            </tr>
+            <tr>
+                <th></th>
+                <td></td>
+                <td><input type="submit" value="Guardar" class="btn btn-secondary" id="boton-guardar"></td>
+                 
+            </tr>
+            <tr>
+                <th class="link-editar" onclick="history.back()">Regresar</th>
+                <td>  </td>
+                <td ></td>
+                
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,159 @@
+body{
+    overflow-x: hidden;
+}
+.header-nav{
+    background-image: linear-gradient(to right,#0F2027, #203A43,#2C5364);
+    position: absolute;
+    top: 0;
+    max-width: 1300px;
+    width: 80%;
+    right: 0px;
+    /*border: 1px solid blue;*/
+    height: 120px;
+    color: #ffffff;
+}
+
+.menu-perfil{
+    top: 0px;
+    position: fixed;
+    background-position: fixed;
+    background-color: #FFFFFF;
+    width: 240px;
+    color: #ffffff;
+    height: 100%;
+}
+
+.piePage{
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    background-color: #4c4b8b;
+    height: 60px;
+    color: #ffffff;
+    z-index: 1;
+}
+
+.icon{
+    width: 100px;
+    height: 70px;
+    margin-top: 50px;
+    margin-left: 25px;
+}
+
+.menu-item{
+    list-style: none;
+    display: grid;
+}
+
+.link-menu{
+    color: #58595a;
+    margin-top: 35px;
+    font-size: 18px;
+    font-family: Helvetica;
+    z-index: 100;
+
+}
+.link-menu:hover{
+    text-decoration: none;
+    color: #50c2b3;
+}
+
+.user-info{
+    /*border: 1px solid #ffffff;*/
+    width: 100%;
+    max-width: 280px;
+    margin-top: 40px;
+    margin-left: 110px;
+    margin-top: 35px;
+    position: relative;
+    color: #ffffff;
+}
+
+.contenedor-menu{
+    margin-top: 40px;
+    position: relative;
+}
+
+.menu-titulo{
+    color: #0F2027;
+    font-family: Helvetica;
+    margin-left: 80px;
+    margin-top: 50px;
+}
+
+.contenedor{
+    height: 500px;
+    width: 500px;
+    margin-top: 180px;
+    margin-left: 250px;
+}
+
+.portada-libro{
+    width: 150px;
+    height: 250px;
+}
+.imagen-portada{
+    width: 150px;
+    height: 250px;
+    cursor: pointer;
+}
+.libros{
+    margin-top: 15px;
+    margin-left: 25px;
+    height: 300px;
+    padding: 5px;
+}
+.info-libro{
+    width: 250px;
+    height: 150px;
+    margin-left: 180px;
+    margin-top: -200px;
+}
+
+.filtros{
+    height: 500px;
+    width: 250px;
+    border: 1px solid yellow;
+    position: fixed;
+    top: 150px;
+    right: 0px;
+    padding: 50px;
+}
+
+.link-editar{
+    color: #807f7f;
+    cursor: pointer;
+}
+
+.ink-guardar{
+    color: #807f7f;
+    cursor: pointer;
+    background-color: cadetblue;
+}
+
+#boton-guardar{
+   
+    max-width: 80%;
+    width: 100px;  		
+    height: auto;
+    color: white;
+}
+
+
+.link-editar:hover{
+    color: #50c2b3;
+    text-decoration: none;    
+}
+/*Estilo aplicados a un solo elemento*/
+#titulo{
+    color: #000000;
+    font-style: oblique;
+    font-family: Helvetica;
+    font-size: 20px;
+}
+
+#autor{
+    color: #58595a;
+}
+

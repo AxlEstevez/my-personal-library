@@ -1,0 +1,155 @@
+body{
+    overflow: hidden;
+}
+h1{
+    color: black;
+    margin-left: 25px;
+    font-family: Helvetica;
+}
+
+.encabezado{
+    position: absolute;
+    background-image: linear-gradient(to right,#0F2027, #203A43,#2C5364);
+    top: 0px;
+    width: 100%;
+    right: 0px;
+    /*border: 1px solid blue;*/
+    height: 150px;
+    color: #ffffff;
+}
+
+
+
+.login-form {
+    
+    padding: 35px;
+    height: 540px;
+    width: 550px;
+    max-width: 80%;
+	margin: 0 auto;
+    margin-top: 110px ;
+    font-family: Tahoma, Geneva, sans-serif;
+    position: relative;
+    overflow: scroll;
+    overflow-x: hidden;
+    
+
+}
+.login-form::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+}
+.login-form::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 5px;
+}
+.login-form::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+.login-form:-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+.login-form h1 {
+    text-align: center;
+    color: #4d4d4d;
+    font-size: 24px;
+    padding: 20px 0 20px 0;
+}
+.login-form input[type="password"],
+.login-form input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing:border-box;
+}
+.login-form input[type="submit"] {
+        max-width: 40%;
+        width: 140px;
+		padding: 15px;
+		background-color: #2b2828;
+        border-radius: 10px;
+        border: 0;
+		box-sizing: border-box;
+		cursor: pointer;
+        color: #ffffff;
+        display:block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10px;
+}
+.login-form select{
+    width: 90%;
+    padding: 15px;
+    border: 1px solid #B2BABB;
+    margin-bottom: 15px;
+}
+.login-form label{
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+#autor{
+    border: 1px solid #cfcbcb;
+    position: absolute;
+    top: 150px;
+    background-color: #ffffff;
+    padding: 50px;
+    display: none;
+}
+
+#enviarAutor{
+    background-color: #0F2027;
+    color: #ffffff;
+    border-color: #0F2027;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#genero{
+    border: 1px solid #cfcbcb;
+    position: absolute;
+    top: 150px;
+    background-color: #ffffff;
+    padding: 50px;
+    display: none;
+}
+
+#enviarGenero{
+    background-color: #0F2027;
+    color: #ffffff;
+    border-color: #0F2027;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#editorial{
+    border: 1px solid #cfcbcb;
+    position: absolute;
+    top: 150px;
+    background-color: #ffffff;
+    padding: 50px;
+    display: none;
+}
+
+#enviarEditorial{
+    background-color: #0F2027;
+    color: #ffffff;
+    border-color: #0F2027;
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+#cerrar{
+    position: absolute;
+    background-color: #0F2027;
+    border-color: #0F2027;
+    color: #ffffff;
+    border-radius: 50px;
+    top: 5px;
+    left: 5px;
+    height: 23px;
+    text-align: center;
+    font-size: small;
+}
