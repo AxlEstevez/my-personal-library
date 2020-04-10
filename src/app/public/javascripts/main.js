@@ -55,12 +55,38 @@ function guarda(){
         }
 }
 
-function verificaSelect(){
+function verificaSelectAutor(){
     var seleccion = document.getElementById("Autor");
-    var despliegue = document.getElementById("autor2");
-    
+    var despliegue = document.getElementById("autor");
     if(seleccion.value == "otro"){
-        seleccion.style.display = "none";
         despliegue.style.display = "block";
     }
+}
+
+function agregaAutor() {
+  var nombre = document.getElementById("nombreAutor");
+  var apellido = document.getElementById("apellidosAutor");
+  var destino = document.getElementById("Autor");
+  var origen = document.getElementById("autor");
+  var valor = String(nombre.value) + "#" + String(apellido.value);
+  var nodoText = String(nombre.value) + " " + String(apellido.value);
+  var opt = document.createElement("option");
+  var optionOtro = document.getElementById("otro");
+
+  opt.value = valor;
+  opt.textContent = nodoText;
+
+  destino.insertBefore(opt,optionOtro);
+
+  if(origen.style.display == "block"){
+    origen.style.display = "none";
+    nombre.value = "";
+    apellido.value = "";
+  }
+}
+
+function cerrarVentanaA(){
+  var ventana = document.getElementById("autor");
+
+  ventana.style.display = "none";
 }

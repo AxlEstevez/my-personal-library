@@ -5,6 +5,10 @@
 --- Universidad Autónoma Metropolitana
 --- Unidad Cuajimalpa
 
+-- Ejecutar ALTER TABLE Autor DROP pais y 
+-- ALTER TABLE Editorial DROP pais desde la línea de 
+-- comando de mysql.
+
 DROP DATABASE IF EXISTS Biblioteca;
 
 CREATE DATABASE Biblioteca;
@@ -38,7 +42,6 @@ CREATE TABLE Autor(
     clave INTEGER AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(40) NOT NULL,
     apellido VARCHAR(25) NOT NULL,
-    pais VARCHAR(25) NOT NULL
 );
 
 ALTER TABLE Autor AUTO_INCREMENT = 100;
@@ -46,7 +49,6 @@ ALTER TABLE Autor AUTO_INCREMENT = 100;
 CREATE TABLE Editorial(
     clave INTEGER AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(40) NOT NULL,
-    pais VARCHAR(25) NOT NULL
 );
 
 ALTER TABLE Editorial AUTO_INCREMENT = 100;
@@ -229,7 +231,18 @@ INSERT INTO Biblioteca_usuario VALUES
 
 
 DROP TABLE IF EXISTS `LibroAutor`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `LibroAutor`  AS  select `Libro`.`ISBN` AS `isbn`,`Libro`.`titulo` AS `titulo`,`Autor`.`nombre` AS `nombre`,`Autor`.`apellido` AS `apellido` from ((`Libro` join `Autor`) join `Escribe`) where `Libro`.`ISBN` = `Escribe`.`ISBN` and `Autor`.`clave` = `Escribe`.`claveAutor` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `LibroAutor`  AS
+  select `Libro`.`ISBN` AS `isbn`,`Libro`.`titulo` AS `titulo`,`Autor`.`nombre` AS
+   `nombre`,`Autor`.`apellido` AS `apellido` from
+    ((`Libro` join `Autor`) join `Escribe`) where
+     `Libro`.`ISBN` = `Escribe`.`ISBN` and `Autor`.`clave` = `Escribe`.`claveAutor` ;
 
 DROP TABLE IF EXISTS `Bibliotecas`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `Bibliotecas`  AS  select `LibroAutor`.`isbn` AS `isbn`,`LibroAutor`.`titulo` AS `titulo`,`LibroAutor`.`nombre` AS `nombre`,`LibroAutor`.`apellido` AS `apellido`,`Usuarios`.`usuario` AS `usuario`,`Usuarios`.`correo` AS `correo` from ((`LibroAutor` join `Usuarios`) join `Biblioteca_usuario`) where `LibroAutor`.`isbn` = `Biblioteca_usuario`.`ISBN` and `Usuarios`.`usuario` = `Biblioteca_usuario`.`usuario` and `Usuarios`.`correo` = `Biblioteca_usuario`.`correo` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `Bibliotecas`  AS  
+select `LibroAutor`.`isbn` AS `isbn`,`LibroAutor`.`titulo` AS `titulo`,`LibroAutor`.`nombre` AS 
+`nombre`,`LibroAutor`.`apellido` AS `apellido`,`Usuarios`.`usuario` AS 
+`usuario`,`Usuarios`.`correo` AS `correo`
+ from ((`LibroAutor` join `Usuarios`) join `Biblioteca_usuario`)
+  where `LibroAutor`.`isbn` = `Biblioteca_usuario`.`ISBN` 
+  and `Usuarios`.`usuario` = `Biblioteca_usuario`.`usuario` 
+  and `Usuarios`.`correo` = `Biblioteca_usuario`.`correo` ;

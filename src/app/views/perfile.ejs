@@ -12,7 +12,7 @@
         <link rel="icon" type="image/icon" href="/images/logo2.2.png">
     </head>
     <body>
-        <% if(mensaje == '1'){ %>
+        <% if(mensaje != 0){ %>
             <script type="text/javascript">
                 Swal.fire({ 
                     icon: 'success',
@@ -20,7 +20,7 @@
                     text: 'Presiona ok para continuar' 
                 });
             </script>
-        <% } %>   
+        <% } %> 
         <% include partials/headerPerfil %>
         <% include partials/menuPerfil %>
         <% include partials/coleccionContenedor %>

@@ -13,57 +13,121 @@
     <body>
         <% include partials/headerPerfil %>
         <% include partials/menuPerfil %>
+        <br><br>
         <div class="addBook">
-            <h1>Nuevo Libro</h1>
+           
             <div class="login-form">
+                <div class="ContentForm">
                 <form action="addBook" method="POST">
-                    <label>ISBN</label>
-                    <input type="text" name="isbn" placeholder="ISBN" required><br/>
-                    <label>Titulo del libro</label>
-                    <input type="text" name="titulo" placeholder="Nombre del Libro" required><br/>
-                    <label>Nombre del autor</label>
-                    <select name="autor" id="Autor" onchange="verificaSelect();">
+                    <h1>Nuevo Libro</h1><br>
+                    <div class="row">
+                        <div class="col">
+                            <label>Titulo del libro</label>                 
+                            <input type="text" class="form-control" name="titulo" placeholder="Nombre del Libro" required><br/>
+                        </div>
+                        <div class="col">
+                            <label>ISBN</label>                   
+                            <input type="text" class="form-control" name="isbn" placeholder="ejemplo: 84-481-4512-7" required><br/>
+                        </div>
+                    </div> 
+
+                    <div class="row">
+                        <div class="col">    
+                            <label>Edicion</label>
+                            <input type="text" class="form-control" name="edicion" placeholder="ejemplo: 1" required><br/>
+                        </div>
+
+                    <div class="col"> 
+                        <label>Idioma</label>
+                        <input type="text" class="form-control" name="idioma" placeholder="ejemplo: Español" required><br/>
+                    </div>
+
+                    <div class="col"> 
+                        <label>P&aacute;ginas</label>
+                        <input type="text" class="form-control" name="paginas" placeholder="ejemplo: 276" required><br/>
+                    </div>
+                </div>
+
+            <div class="row">    
+                <div class="col"> 
+                    <label>Autor</label>                   
+                    <select class="form-control" name="autor" id="Autor" onchange="verificaSelectAutor();">
+                        <option value="null"></option>
                         <% if(autors.length > 0){ %>
                             <% for(var i = 0; i < autors.length;i++){ %>
-                                <option value=""> 
-                                    <%= autors[i].nombre + " " + autors[i].apellido %>
+                                <option value=<%=autors[i].nombre + "#" + autors[i].apellido%>> 
+                                    <%=autors[i].nombre + " " + autors[i].apellido %>
                                 </option> 
                             <% } %>
                         <% } %>
-                        <option value="otro">otro</option>
-                        <input type="text" name="autor2" id="autor2" 
-                        style="display: none;" placeholder="autor" required><br/>
-                    </select>
-                    <label>Edicion</label>
-                    <input type="text" name="edicion" placeholder="1" required><br/>
-                    <label>p&aacute;ginas</label>
-                    <input type="text" name="paginas" placeholder="páginas del libro" required><br/>
-                    <label>Idioma</label>
-                    <input type="text" name="idioma" placeholder="Idioma" required><br/>
+                        <option value="otro" id="otro">otro</option>
+                    </select>                   
+                </div>
+
+                <div class="col">     
                     <label>Género</label>
-                    <select name="genero">
-                        <option value=" ">Seleccionar Género </option>
-                        <option value="Romantico">Romantico</option>
-                        <option value="Drama">Drama</option>
-                        <option value="Misterio">Misterio</option>
-                        <option value="Terror">Terror</option>
-                        <option value="Comedia">Comedia</option>
-                        <option value="Infantil">Infantil</option>
-                        <option value="Tecnologia">Tecnología</option>
-                        <option value="Novela">Novela</option>
-                        <option value="Aventura">Aventura</option>
-                        <option value="CienciaFiccion">Ciencia Ficción</option>
-                        <option value="Poesia">Poesía</option>
-                        <option value="Autoayuda">Autoayuda</option>
-                        <option value="Historia">Historia</option>
+                    <select class="form-control" name="genero" id="Genero" onchange="verificaSelectG();">
+                        <% if(generos.length > 0){ %>
+                            <% for(var i = 0; i < generos.length;i++){ %>
+                                <option value=<%=generos[i].nombre%>> 
+                                    <%=generos[i].nombre%>
+                                </option> 
+                            <% } %>
+                        <% } %>
+                        <option value="otro" id="otroG">otro</option>
                     </select>
                    <br/>
-                   <input type="text" id="lista" name="lista" value="0" style="display: none;">
-                    <input type="submit" value="Agregar">
-                </form>
+                </div>
+
+                <div class="col">   
+                    <label>Editorial</label>
+                    <select class="form-control" name="editorial" id="Editorial" onchange="verificaSelectE();">
+                        <option value="null"> </option>
+                        <% if(editoriales.length > 0){ %>
+                            <% for(var i = 0; i < editoriales.length;i++){ %>
+                                <option value=<%=editoriales[i].clave%>> 
+                                    <%=editoriales[i].nombre%>
+                                </option> 
+                            <% } %>
+                        <% } %>
+                        <option value="otro" id="otroE">otro</option>
+                    </select>
+                   
+                </div>
             </div>
-			
+
+                <input type="text" class="form-control" id="lista" name="lista" value="0" style="display: none;">
+                <input type="submit" value="Agregar">
+                </form>
+
+                <div id="autor">
+                    <input type="button" id="cerrar" value="x" onclick="cerrarVentanaA();">
+                    <h3>Autor nuevo</h3>
+                    <label for="nombre: ">Nombre</label>
+                    <input type="text" class="form-control" id="nombreAutor">
+                    <label for="apellidos: ">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidosAutor">
+                    <input type="button"  id="enviarAutor" value="Enviar" onclick="agregaAutor();">
+                </div>
+
+                <div id="genero">
+                    <input type="button" id="cerrar" value="x" onclick="cerrarVentana();">
+                    <h3>Genero nuevo</h3>
+                    <label for="nombre: ">Genero</label>
+                    <input type="text" class="form-control" id="nombreGenero">
+                    <input type="button"  id="enviarGenero" value="Enviar" onclick="agregarGenero();">
+                </div>
+
+                <div id="editorial">
+                    <input type="button" id="cerrar" value="x" onclick="cerrarVentana();">
+                    <h3>Editorial nuevo</h3>
+                    <label for="nombre: ">Editorial</label>
+                    <input type="text" class="form-control" id="nombreEditorial">
+                    <input type="button"  id="enviarEditorial" value="Enviar" onclick="agregarEditorial();">
+                </div>
+
+            </div>
+        </div>
 		</div>
-      <!--<% include partials/footer %>-->  
     </body>
 </html>
